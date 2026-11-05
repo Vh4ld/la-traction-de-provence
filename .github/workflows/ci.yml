@@ -38,3 +38,29 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  container:
+    name: Image Docker (nginx, en-têtes, redirections)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construire l'image
+        run: docker build -t traction-site:ci .
+
+      - name: Vérifier la configuration nginx
+        run: docker run --rm traction-site:ci nginx -t
+
+      - name: Démarrer le conteneur comme en production
+        run: |
+          docker run -d --name site --read-only --tmpfs /tmp \
+            --cap-drop ALL --security-opt no-new-privileges \
+            -p 8080:8080 traction-site:ci
+          for i in $(seq 1 30); do curl -fs http://localhost:8080/healthz && break; sleep 1; done
+
+      - name: Vérifier pages, en-têtes et redirections
+        run: tests/container/check.sh http://localhost:8080
+
+      - name: Journaux du conteneur
+        if: always()
+        run: docker logs site

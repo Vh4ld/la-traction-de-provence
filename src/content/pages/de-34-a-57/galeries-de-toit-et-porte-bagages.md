@@ -18,14 +18,14 @@ Elles étaient équipées d’un système de fixation auto-serreur à montage ra
 Ce modèle est assez rare à dénicher aussi vous trouverez plus facilement aujourd’hui une refabrication moderne plutôt qu’un modèle d’origine.
 
 ![Les galeries Tubauto, photo 1](../../../assets/content/aviation-03.jpg)
-    ![Les galeries Tubauto, photo 2](../../../assets/content/aviation-01.jpg)
+![Les galeries Tubauto, photo 2](../../../assets/content/aviation-01.jpg)
 
 ## Les galeries et portes bagages OLD
 ![Les galeries et portes bagages OLD, photo 1](../../../assets/content/old-02jpg-f9f998.jpg)
 Le porte bagage arrière en métal blanc poli était entièrement réglable et articulé. Il se fixait au pare-chocs arrière et à 2 points de la carrosserie.
 
 ![Les galeries et portes bagages OLD, photo 2](../../../assets/content/old-03.jpg) ![Les galeries et portes bagages OLD, photo 3](../../../assets/content/old-04.jpg)
-    ![Les galeries et portes bagages OLD, photo 4](../../../assets/content/old-01.jpg) Les galeries métalliques OLD, produites après la guerre, étaient posées sur 4 patins en caoutchouc avec des coupelles qui les rendaient orientables automatiquement en fonction de l’inclinaison du toit. Elles étaient fixées aux gouttières par 2 pattes centrales serrées simplement par une molette, leur système de fixation ne nécessitait donc aucun outil.
+![Les galeries et portes bagages OLD, photo 4](../../../assets/content/old-01.jpg) Les galeries métalliques OLD, produites après la guerre, étaient posées sur 4 patins en caoutchouc avec des coupelles qui les rendaient orientables automatiquement en fonction de l’inclinaison du toit. Elles étaient fixées aux gouttières par 2 pattes centrales serrées simplement par une molette, leur système de fixation ne nécessitait donc aucun outil.
 Il existait différents modèles, le standard en acier brut ou peint apprêt noir, le Luxe Alu Bois, tout alu, Acier inox ou encore un modèle spécial pour voiture à toit ouvrant.
 ![Les galeries et portes bagages OLD, photo 5](../../../assets/content/old-05.jpg)
 
@@ -73,7 +73,7 @@ Les différents équipements Fix-0-toit étaient conçus pour s’adapter à tou
 
 ![Les Fix-o-toit, photo 2](../../../assets/content/fix-o-toit-2.jpg)
 
-  ![Les Fix-o-toit, photo 3](../../../assets/content/supless-02-fixotoit.jpg) ![Les Fix-o-toit, photo 4](../../../assets/content/fix-o-toit-3.jpg)
+![Les Fix-o-toit, photo 3](../../../assets/content/supless-02-fixotoit.jpg) ![Les Fix-o-toit, photo 4](../../../assets/content/fix-o-toit-3.jpg)
 
 ## Le porte-bagages RIGIDEX
  **![Le porte-bagages RIGIDEX, photo 1](../../../assets/content/riridex-porte-bagages.jpg) ![Le porte-bagages RIGIDEX, photo 2](../../../assets/content/rigidex-2.jpg)**
@@ -85,6 +85,6 @@ Les différents équipements Fix-0-toit étaient conçus pour s’adapter à tou
 
 ![Diverses marques de porte-bagages et galeries, photo 3](../../../assets/content/galerie-lapieuvre.jpg)
 
-  ![Diverses marques de porte-bagages et galeries, photo 4](../../../assets/content/vw-pb.jpg)
+![Diverses marques de porte-bagages et galeries, photo 4](../../../assets/content/vw-pb.jpg)
 
 ![Diverses marques de porte-bagages et galeries, photo 5](../../../assets/content/porte-bagage89c0.jpg)

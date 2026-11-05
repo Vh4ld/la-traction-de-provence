@@ -22,7 +22,7 @@ Le système est fiable et contrairement à ce qui a pu être écrit, les clés s
 ![Les antivols, photo 4](../../../assets/content/bv-robri2.jpg)
 
 Ce modèle, réservé aux 7 et 11 avant 1939, a ensuite été adapté pour les Traction qui ont suivi. La pose est identique, aussi rapide et aussi efficace.
- ![Les antivols, photo 5](../../../assets/content/bv-robri3.jpg)
+![Les antivols, photo 5](../../../assets/content/bv-robri3.jpg)
 
 ![Les antivols, photo 6](../../../assets/content/bv-robri.jpg)
 
@@ -83,7 +83,7 @@ la bobine est mise à la masse. Antivol très efficace mais très difficile à m
 et imposant le perçage irréversible de quelques trous au niveau du tablier
 et du compartiment moteur.
 
-       ![Les antivols, photo 33](../../../assets/content/serjpgdocid87695.jpg)
+![Les antivols, photo 33](../../../assets/content/serjpgdocid87695.jpg)
 
 ![Les antivols, photo 34](../../../assets/content/ser3.jpg)
 
@@ -98,7 +98,7 @@ La vis de fixation du cache roue est usinée en son extrémité pour accepter un
 ## l’antivol ROTAR
 Une coupelle concave percée en son centre est fixée par la vis de fixation du cache-roue de secours. Un cabochon vient se fixer après emboitage.
 
-  ![l’antivol ROTAR, photo 1](../../../assets/content/prelac.jpg)
+![l’antivol ROTAR, photo 1](../../../assets/content/prelac.jpg)
 
 ![l’antivol ROTAR, photo 2](../../../assets/content/rotar.jpg)
 

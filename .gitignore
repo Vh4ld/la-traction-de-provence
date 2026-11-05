@@ -42,3 +42,4 @@ scripts/.cache/
 lighthouse-report*/
 playwright-report/
 test-results/
+deploy/redirects/

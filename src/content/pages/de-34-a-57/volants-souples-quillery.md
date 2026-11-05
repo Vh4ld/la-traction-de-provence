@@ -30,4 +30,4 @@ Il offrait une conduite souple, flexible et sans fatigue grâce au filtrage des 
 
 ![Le volant Viraflex 2 branches, photo 1](../../../assets/content/viraflex-2branches-2.jpg)
 
-  ![Le volant Viraflex 2 branches, photo 2](../../../assets/content/quillery-vire900.jpg)   ![Le volant Viraflex 2 branches, photo 3](../../../assets/content/quillery-virbbdf.jpg)   ![Le volant Viraflex 2 branches, photo 4](../../../assets/content/quillery-1952.jpg)
+![Le volant Viraflex 2 branches, photo 2](../../../assets/content/quillery-vire900.jpg)   ![Le volant Viraflex 2 branches, photo 3](../../../assets/content/quillery-virbbdf.jpg)   ![Le volant Viraflex 2 branches, photo 4](../../../assets/content/quillery-1952.jpg)

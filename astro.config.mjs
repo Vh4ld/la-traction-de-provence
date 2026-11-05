@@ -18,6 +18,8 @@ export default defineConfig({
     },
   },
   markdown: {
+    // Pas de coloration de code : elle ajoute des styles en ligne, interdits par la CSP.
+    syntaxHighlight: false,
     rehypePlugins: [rehypeContent],
   },
   integrations: [sitemap({ filter: (page) => !page.includes('/404') }), obfuscateEmailsIntegration()],

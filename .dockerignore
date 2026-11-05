@@ -1,0 +1,15 @@
+node_modules
+dist
+.astro
+.git
+.github
+.superpowers
+.claude
+scripts/.cache
+test-results
+playwright-report
+deploy/redirects
+docs
+tests
+*.md
+!src/**/*.md
