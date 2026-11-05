@@ -91,6 +91,9 @@ const isSectionIndex = Astro.url.pathname === `/${section}/`;
   .article__cover {
     width: min(100%, 22rem);
     height: auto;
+    /* Sur mobile, l'image ne doit pas repousser le texte hors de l'écran. */
+    max-height: 14rem;
+    object-fit: cover;
     margin: 0 0 var(--space-l);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -98,6 +101,7 @@ const isSectionIndex = Astro.url.pathname === `/${section}/`;
 
   @media (min-width: 56rem) {
     .article__cover {
+      max-height: none;
       float: right;
       margin: 0 0 var(--space-l) var(--space-xl);
     }

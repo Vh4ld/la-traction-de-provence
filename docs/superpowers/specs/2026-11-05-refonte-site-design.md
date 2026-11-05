@@ -1,7 +1,7 @@
 # Refonte du site La Traction de Provence — Design
 
 **Date:** 2026-11-05
-**Status:** Awaiting review
+**Status:** Implemented on branch `test` (2026-11-05) — awaiting owner review and merge
 **Repo:** `git@github.com:Vh4ld/la-traction-de-provence.git`
 
 ## 1. Goal
