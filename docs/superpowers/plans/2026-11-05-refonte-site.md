@@ -19,7 +19,8 @@
 - Palette: background `#1F1F1F`, header band `#5C5A5A`, navy `#07286D`, gold `#FAC608`, gold-2 `#F4C418`, tint `#D3DBEE`.
 - No forum, no comments, no contact form, no analytics, no third-party requests at runtime (fonts self-hosted), no cookies.
 - No inline executable `<script>`: Astro configured with `vite.build.assetsInlineLimit: 0` and `build.inlineStylesheets: 'never'`, so the CSP `script-src 'self'` holds. JSON-LD (`type="application/ld+json"`) is allowed.
-- Wayback content: only snapshots with timestamp `< 20250201000000`. Downloaded files are untrusted: read and copy only, never execute; run Node scripts that parse them from the repo, never from the download folder.
+- Wayback content: only snapshots with timestamp `< 20230701000000`. Downloaded files are untrusted: read and copy only, never execute; run Node scripts that parse them from the repo, never from the download folder.
+- Media source: the local backup `/home/vhald/Documents/Traction/my_directory/IMG/` (path passed as `--backup`), validated per spec §5. It contains webshells: never execute, include, serve or copy any non-media file from it. Never `cd` into it to run tools.
 - Container: listens on `8080`, runs non-root, `read_only`, network `proxy-net` (external), container name `traction_site`, no host port.
 - Image: `ghcr.io/vh4ld/la-traction-de-provence`, tags `latest` and `sha-<short sha>`.
 - WCAG 2.2 AA; axe zero violations on every built page; Lighthouse ≥ 95 in all four categories on `/` and one article page.
@@ -151,7 +152,9 @@ tests/unit/*.test.ts (Vitest), tests/e2e/*.spec.ts (Playwright), tests/fixtures/
 
 **Interfaces:**
 - Produces:
-  - `pickSnapshot(rows: {timestamp: string; status: string}[], cutoff = '20250201000000'): string | null`: latest `status==='200'` with `timestamp < cutoff`.
+  - `pickSnapshot(rows: {timestamp: string; status: string}[], cutoff = '20230701000000'): string | null`: latest `status==='200'` with `timestamp < cutoff`.
+  - `validateMedia(path: string): Promise<{ ok: true; type } | { ok: false; reason: string }>`: magic bytes match the extension; no `<?php`/`<script`/`eval(` bytes; for PDFs rejects `/JavaScript`, `/JS`, `/Launch`, `/EmbeddedFile`, and `/OpenAction` unless followed by a plain destination array (`[n 0 R /XYZ|/Fit…]`).
+  - `importImage(src, dest)`: re-encodes through `sharp` (`.rotate()` then same format, metadata stripped).
   - `fetchWayback(timestamp: string, url: string, opts?: {retries=5, baseDelayMs=3000}): Promise<Buffer>`: uses the `${ts}id_/` raw form, exponential backoff, throws `ArchiveUnavailableError` when the body is a placeholder.
   - `isArchivePlaceholder(body: string): boolean`: true for "Temporarily Offline", "Time-out", "Wayback Machine has not archived".
   - `extractArticle(html: string): { title: string; html: string; images: string[]; pdfs: string[]; flags: string[] }`: picks the SPIP Party article body; removes `script, style, iframe, object, embed, form, [style*="display:none"], [hidden]`, `on*` attributes and links to hosts outside an allowlist (`la-traction-de-provence.fr`, `s631887927.onlinehome.fr`, `web.archive.org`, `citroen.com`, `wikipedia.org`); each removed external link or hidden block adds a `flags` entry.
@@ -161,7 +164,8 @@ tests/unit/*.test.ts (Vitest), tests/e2e/*.spec.ts (Playwright), tests/fixtures/
 
 - [ ] **Step 1:** Fixtures: save a real archived article page (id 53, < cutoff) as `article-53.html`; hand-craft `spam-injected.html` (article-53 plus a hidden div of casino links and an injected `<script>`); `offline.html` from the archive's offline page; `fake.pdf` = HTML bytes; `real.pdf` = a minimal valid PDF.
 - [ ] **Step 2:** Tests:
-  - `pickSnapshot` returns `'20240620055454'` from rows that include a `20250909…` row and a `503`.
+  - `pickSnapshot` returns `'20230208071048'` from rows `20171018005338/200`, `20230208071048/200`, `20230601000000/503`, `20240620055454/200`.
+  - `validateMedia`: `fake.pdf` → not ok; `real.pdf` → ok; a PDF fixture with `/OpenAction << /S /JavaScript …>>` → not ok; a PDF with `/OpenAction [1 0 R /XYZ null null 0]` → ok; a JPEG with `<?php` appended → not ok.
   - `pickSnapshot` returns `null` when all rows are ≥ cutoff.
   - `isArchivePlaceholder(offline)` is true and false for article-53.
   - `extractArticle(spam)` output contains no `<script`, no "casino" and ≥ 1 flag; its title is "Qui sommes nous ?".

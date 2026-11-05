@@ -35,8 +35,17 @@ Rebuild the website of La Traction de Provence (non-profit "association loi 1901
 - `traction-provence-docker/wordpress-export.tar` is a `docker commit` of a stock `wordpress:latest` (6.8.2) container. It holds only default themes and Akismet: `/var/www/html` was a volume and was not captured.
 - `wordpress_db.sql` contains only mysqldump's usage message. No data.
 - The original site was **SPIP 3.1.9** with the "SPIP Party 1.5" template and the `feria-blue` stylesheet, served at `s631887927.onlinehome.fr` and framed under `la-traction-de-provence.fr`.
-- The homepage shrinks from ~5.9 KB to ~575 bytes in **September 2025** (likely hack date). Spam pages (`/js/1856.html`, `/images/3057.html`, …) appear from **February 2025**. Only snapshots **before 2025-02-01** are trusted.
+- The homepage shrinks from ~5.9 KB to ~575 bytes in **September 2025** (likely hack date). Spam pages (`/js/1856.html`, `/images/3057.html`, …) appear from **February 2025**. The local backup (below) shows the compromise actually began by **July 2023**, so only snapshots **before 2023-07-01** are trusted.
 - Wayback holds ~35 article pages (`spip.php?page=article&id_article=N`), one section page (`id_rubrique=5`), ~100 PDFs under `IMG/pdf/`, images under `IMG/jpg/` and `local/cache-vignettes/`, the header image and the 6 banner photos (`squelettes/toto/1-6.jpg`).
+
+### Local backup of the old site (`../my_directory/`, added 2026-11-05)
+
+- Full SPIP file tree (2.3 GB) **without the database** (MySQL, not saved; `config/bases/spip.sqlite` is empty). `Discute/` is the phpBB forum: out of scope, not used.
+- **The compromise started no later than July 2023:** webshells and droppers dated 2023-07 → 2024-10 (`IMG/.about.php`, `IMG/store.php`, `IMG/distant/xml/*.php`, `IMG/bmp/bg_hash3.php`, root `bd.php`, `fr.php`, `pk.php`, `od.php`, `oy.php`, `1.sh`, `get.sh`, …), tampered templates (`squelettes/js/`, `squelettes/modeles/` 2023-06, `sommaire.html` 2023-10). The September 2025 defacement was only the visible end.
+- `IMG/` holds the original media: 192 PDFs (292 MB), 1,196 JPEG, 127 PNG, 12 GIF. Real types match extensions, no PHP/script markers inside any media file; one PDF has an `/OpenAction` that is a plain page destination (benign).
+- `squelettes/styles/header-blue.psd` is the layered source of the header (clean logo source); `squelettes/toto/1-6.jpg` are the banner photos.
+
+**Consequences:** texts still come from the Wayback Machine, but with the trust cutoff moved to **before 2023-07-01**. Media come from the local `IMG/` (better quality, complete), never from the archive, after validation (§5). No PHP, HTML, JS or CSS file from the backup is reused.
 
 ### Visual identity extracted
 
@@ -148,11 +157,11 @@ Other archived ids (74, 91, 98, 100, 104, 109) are reviewed during migration and
 
 One-off Node script in `scripts/migrate/`, run locally, output committed after manual review.
 
-1. Query the Wayback CDX API for each known URL; pick the **latest 200 snapshot before 2025-02-01**.
+1. Query the Wayback CDX API for each known URL; pick the **latest 200 snapshot before 2023-07-01** (start of the compromise, see §2).
 2. Fetch the raw page (`id_` mode), with retry and backoff (the archive is flaky and rate-limited).
 3. Extract the article body from the SPIP Party markup; drop all `<script>`, `<iframe>`, inline handlers, hidden elements, external links not on an allowlist and anything matching spam patterns.
 4. Convert to Markdown (`turndown`), write frontmatter, record `legacyIds`.
-5. Download referenced images and PDFs; verify MIME type by content (not extension); store images in `src/assets/`, PDFs in `public/documents/`.
+5. Resolve referenced images and PDFs **from the local backup `IMG/`** (archive only as a fallback for files missing locally). Validation for every file: real type by magic bytes matches the extension; no `<?php`, `<script`, `eval(` markers; PDFs rejected if they contain `/JavaScript`, `/JS`, `/Launch`, `/EmbeddedFile` or an `/OpenAction` that is not a plain page destination; images re-encoded through `sharp` (strips any trailing payload and metadata). Store images in `src/assets/content/`, PDFs in `public/documents/`. Only files referenced by a kept page are imported.
 6. Write a migration report: pages fetched, snapshot date per page, missing assets, flagged suspicious content.
 
 Every recovered page is reviewed by hand before commit. All downloaded files are treated as untrusted: they are only read and copied, never executed. The owner proofreads texts, since several pages date from 2017–2021 snapshots.
