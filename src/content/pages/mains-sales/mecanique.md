@@ -2,14 +2,13 @@
 title: "Mécanique"
 section: mains-sales
 order: 9
-description: "Carburateur Remplacement d’un carburateur SOLEX 35 FPAI Révision d’un carburateur SOLEX 35 FPAI Remplacement d’un carburateur SOLEX 32 PBIC ou ZENITH 32 I.N."
+description: "Mécanique de la Traction Avant : carburateurs Solex et Zenith, filtres, moteur, embrayage, boîte, freins et trains roulants, en PDF."
 legacyIds: [64]
 cover: ../../../assets/content/arton64.jpg
 # Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=64" (capture 20191019053401)
 ---
 
-**Carburateur**
-
+## Carburateur
 - [Remplacement d’un carburateur SOLEX 35 FPAI](/documents/remplacement-carbu-solex-35fpai.pdf)
 - [Révision d’un carburateur SOLEX 35 FPAI](/documents/revision-carbu-solex-35fpai.pdf)
 - [Remplacement d’un carburateur SOLEX 32 PBIC ou ZENITH 32 I.N.](/documents/remplacement-carbu-solex-32bpic.pdf)

@@ -10,9 +10,9 @@ legacyIds: [104]
 Dès la sortie de la 7, de nombreux accessoiristes ont proposé sur le marché des systèmes antivol pour éviter le vol des véhicules.
 
 Le plus connu est incontestablement le coupe-circuit. C’est certainement le moins efficace car :
-\- il est systématiquement placé au même endroit, sur le tablier côté droit
-\- les clés sont toutes identiques
-\- une clé plate de 17 est suffisante pour le by passer en reliant un le fil de la batterie sur l’autre cosse de l’anti-vol.   ![Les antivols, photo 1](../../../assets/content/coupe-circuiab05.jpg) ![Les antivols, photo 2](../../../assets/content/coupe-circui5668.jpg) Un autre système voit le jour peu de mois après la sortie de la 7, c’est l’immobilisation du véhicule par le blocage du levier de vitesses.
+- il est systématiquement placé au même endroit, sur le tablier côté droit
+- les clés sont toutes identiques
+- une clé plate de 17 est suffisante pour le by passer en reliant un le fil de la batterie sur l’autre cosse de l’anti-vol.   ![Les antivols, photo 1](../../../assets/content/coupe-circuiab05.jpg) ![Les antivols, photo 2](../../../assets/content/coupe-circui5668.jpg) Un autre système voit le jour peu de mois après la sortie de la 7, c’est l’immobilisation du véhicule par le blocage du levier de vitesses.
 En fonction des marques, le point mort ou la marche arrière ou la 3ème est bloqué par le verrouillage de l’antivol.Système très efficace dont la mise en place ne prend que quelques secondes. La platine munie d’une serrure activant un pêne doit être enfilée sur le levier de vitesse à son endroit le plus fin, on fait coulisser l’antivol jusqu’à la planche de bord et on verrouille. Le véhicule peut démarrer mais n’est pas utilisable en l’état. Le modèle le plus connu est le système « Block-vitesses » de la marque Robri (verrouillage de la 3eme vitesse).
 
 ![Les antivols, photo 3](../../../assets/content/bv-robri1.jpg)
@@ -89,34 +89,33 @@ et du compartiment moteur.
 
 ![Les antivols, photo 35](../../../assets/content/ser6.jpg)
 
-**La protection contre le vol des roues**
-
+## La protection contre le vol des roues
 La roue de secours sur les malles borgnes et sur les malles plates est protégée par un cache roue. Les 2 systèmes suivants permettaient de protéger l’ensemble.
 
-**le système PRELAC**
+## le système PRELAC
 La vis de fixation du cache roue est usinée en son extrémité pour accepter un manchon chromé équipé d’un verrou à clé.
 
-**l’antivol ROTAR**
+## l’antivol ROTAR
 Une coupelle concave percée en son centre est fixée par la vis de fixation du cache-roue de secours. Un cabochon vient se fixer après emboitage.
 
-  ![Les antivols, photo 36](../../../assets/content/prelac.jpg)
+  ![l’antivol ROTAR, photo 1](../../../assets/content/prelac.jpg)
 
-![Les antivols, photo 37](../../../assets/content/rotar.jpg)
+![l’antivol ROTAR, photo 2](../../../assets/content/rotar.jpg)
 
 ## Autres protections contre le vol des roues :
 
 PRELAC
 L’antivol est constitué d’un écrou qui remplace l’un de ceux fixant la roue sur lequel vient se positonner un contre écrou à serrure de sûreté.
 Le modèle 544 pour 7CV se montait à la place de l’écrou Michelin.
-Le modèle 546 pour 7, 11 et 15CV se fixait sur le flasque à la place de l’écrou d’origine qui maintient la roue de secours.   ![Les antivols, photo 38](../../../assets/content/prelac-2.jpg)
+Le modèle 546 pour 7, 11 et 15CV se fixait sur le flasque à la place de l’écrou d’origine qui maintient la roue de secours.   ![Autres protections contre le vol des roues :, photo 1](../../../assets/content/prelac-2.jpg)
 
 EFSA
-![Les antivols, photo 39](../../../assets/content/efsa.jpg)
+![Autres protections contre le vol des roues :, photo 2](../../../assets/content/efsa.jpg)
 
 Autre modèle, sur le même principe, neuf d’époque avec son étiquette 1942
 
-![Les antivols, photo 40](../../../assets/content/antivol-roue4893.jpg)
+![Autres protections contre le vol des roues :, photo 3](../../../assets/content/antivol-roue4893.jpg)
 
 Très rare antivol à code de 3 chiffres, le dispositif est assez fragile et il n’est pas très efficace, un simple coup de tournevis permettrait de le retirer, le tenon bloquant l’écrou de fixation ne mesure que quelques millimètres.
 
-![Les antivols, photo 41](../../../assets/content/antivol-roueff8d.jpg)
+![Autres protections contre le vol des roues :, photo 4](../../../assets/content/antivol-roueff8d.jpg)

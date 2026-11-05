@@ -2,7 +2,7 @@
 title: "Électricité"
 section: mains-sales
 order: 5
-description: "Schémas électriques Documents Citroën pour modèles de 1934 à 1957 Le schéma de TA après 1952 de Michel Legay Batterie/coupe circuit Démonter une batterie et…"
+description: "Électricité de la Traction Avant : schémas, dynamo, régulateur, démarreur, allumage et passage en 12 V. Fiches et documents en PDF."
 legacyIds: [56]
 cover: ../../../assets/content/arton56.jpg
 # Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=56" (capture 20221202001226)
@@ -13,9 +13,10 @@ cover: ../../../assets/content/arton56.jpg
 - [Documents Citroën pour modèles de 1934 à 1957](/documents/schemas-electriques-citroen.pdf)
 - [Le schéma de TA après 1952 de Michel Legay](/documents/le_schema_de_ta_apres_1952_de_michel_legay.pdf)
 
-## Batterie/coupe-circuit
+## Passer en 12 V
 
-- Démonter une batterie et installer un coupe-circuit en toute sécurité
+- [Passer sa Traction en 12 V](/documents/passer-traction-12v.pdf), par Jean-Philippe Delerce
+- [Monter un ventilateur 12 V](/documents/ventilateur-12v.pdf), par Jean-Philippe Delerce
 
 ## Dynamo / Régulateur
 

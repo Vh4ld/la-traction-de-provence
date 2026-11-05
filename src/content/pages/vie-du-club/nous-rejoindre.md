@@ -9,8 +9,7 @@ legacyIds: [2]
 
 Vous êtes passionné de Traction Avant ? Vous en possédez une ou vous souhaitez en acquérir une ?
 
-**Rejoignez-nous !**
-
+## Rejoignez-nous !
 ## Conditions d’inscription
 
 - Droit d’entrée : **15 €**

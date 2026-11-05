@@ -2,14 +2,13 @@
 title: "Docs étrangères"
 section: de-34-a-57
 order: 3
-description: "Allemagne Der neue \"7\" CITROEN Technische Merkmale Der neue CITROEN 7 FRONT im spiegel der deutfchen Dreffe Angleterre THE TWELVE The Super Modern Car…"
+description: "Documents publicitaires étrangers sur la Traction Avant Citroën : Allemagne, Angleterre, Danemark, Italie, Pays-Bas, Portugal, Suède."
 legacyIds: [72]
 cover: ../../../assets/content/arton72.jpg
 # Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=72" (capture 20210121195351)
 ---
 
-**Allemagne**
-
+## Allemagne
 - [Der neue "7" CITROEN - Technische Merkmale](/documents/allemagne-1.pdf)
 - [Der neue CITROEN 7 FRONT im spiegel der deutfchen Dreffe](/documents/allemagne-2.pdf)
 

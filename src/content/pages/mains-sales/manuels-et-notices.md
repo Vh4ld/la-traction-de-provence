@@ -2,14 +2,13 @@
 title: "Manuels et notices"
 section: mains-sales
 order: 4
-description: "Notices AC 3825 1934 Notice entretien 7 (édition provisoire) Notice entretien 7 et 11 AC4870 1950 Notice entretien type 11 AC5007 1953 Notice entretien type…"
+description: "Manuels de bord et notices d’entretien Citroën d’époque pour les Traction Avant 7, 11 et 15-Six, à télécharger en PDF."
 legacyIds: [61]
 cover: ../../../assets/content/arton61.jpg
 # Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=61" (capture 20221202002900)
 ---
 
-**Notices**
-
+## Notices
 - [AC 3825 1934 - Notice entretien 7 (édition provisoire)](/documents/notice-entretien-7.pdf)
 - [Notice entretien 7 et 11](/documents/notice-entretien-7-11.pdf)
 - [AC4870 1950 - Notice entretien type 11](/documents/notice-entretien-11bl-11.pdf)

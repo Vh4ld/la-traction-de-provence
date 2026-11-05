@@ -2,7 +2,7 @@
 title: "Revues techniques"
 section: mains-sales
 order: 3
-description: "Etudes des Traction Avant Citroën 7 et 11 Revue Technique Automobiles Votre Citroën 7 11 15 Editions Pratiques Automobiles Les archives du collectionneur 7,…"
+description: "Revues techniques, livrets techniques Citroën et archives du collectionneur pour les Traction Avant 7, 11 et 15, en PDF."
 legacyIds: [66]
 cover: ../../../assets/content/arton66.jpg
 # Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=66" (capture 20220817003501)

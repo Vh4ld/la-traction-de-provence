@@ -2,7 +2,7 @@
 title: "Carrosserie"
 section: mains-sales
 order: 7
-description: "Dictionnaire des réparations carrosserie 7 et 11 La réparation des carrosseries 7 et 11 par Monsieur Jean Aron janvier 1935 AC4402 Catalogue des pièces…"
+description: "Carrosserie des Traction Avant 7 et 11 : dictionnaire des réparations, méthode de 1935 et catalogue des pièces, en PDF."
 legacyIds: [62]
 cover: ../../../assets/content/arton62.jpg
 # Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=62" (capture 20220126181615)
