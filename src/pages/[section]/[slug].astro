@@ -1,23 +1,29 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { pageRoute } from '../../lib/pages';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { pageRoute, sectionChildren } from '../../lib/pages';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
   return pages
     .map((entry) => ({ entry, route: pageRoute(entry.filePath!) }))
     .filter(({ route }) => route.slug)
-    .map(({ entry, route }) => ({ params: { section: route.section, slug: route.slug }, props: { entry } }));
+    .map(({ entry, route }) => ({
+      params: { section: route.section, slug: route.slug },
+      props: { entry, siblings: sectionChildren(pages, route.section) },
+    }));
 }
 
-const { entry } = Astro.props;
+const { entry, siblings } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description}>
-  <article class="container prose">
-    <h1>{entry.data.title}</h1>
-    <Content />
-  </article>
-</BaseLayout>
+<ArticleLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  section={entry.data.section}
+  cover={entry.data.cover}
+  siblings={siblings}
+>
+  <Content />
+</ArticleLayout>

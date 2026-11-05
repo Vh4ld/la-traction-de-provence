@@ -1,20 +1,18 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { pageRoute } from '../../lib/pages';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { pageRoute, sectionChildren } from '../../lib/pages';
 
 export async function getStaticPaths() {
-  const pages = (await getCollection('pages')).map((entry) => ({ entry, route: pageRoute(entry.filePath!) }));
+  /** Rubriques ayant leur propre page (src/pages/<rubrique>/index.astro). */
+  const CUSTOM = new Set(['photo-du-mois']);
+  const pages = await getCollection('pages');
   return pages
-    .filter(({ route }) => !route.slug)
+    .map((entry) => ({ entry, route: pageRoute(entry.filePath!) }))
+    .filter(({ route }) => !route.slug && !CUSTOM.has(route.section))
     .map(({ entry, route }) => ({
       params: { section: route.section },
-      props: {
-        entry,
-        children: pages
-          .filter((p) => p.route.section === route.section && p.route.slug)
-          .sort((a, b) => a.entry.data.order - b.entry.data.order),
-      },
+      props: { entry, children: sectionChildren(pages, route.section) },
     }));
 }
 
@@ -22,20 +20,12 @@ const { entry, children } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description}>
-  <article class="container prose">
-    <h1>{entry.data.title}</h1>
-    <Content />
-    {
-      children.length > 0 && (
-        <ul>
-          {children.map(({ entry: child, route }) => (
-            <li>
-              <a href={route.url}>{child.data.title}</a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
-  </article>
-</BaseLayout>
+<ArticleLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  section={entry.data.section}
+  cover={entry.data.cover}
+  siblings={children}
+>
+  <Content />
+</ArticleLayout>

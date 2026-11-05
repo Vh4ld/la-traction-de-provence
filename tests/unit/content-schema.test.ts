@@ -1,11 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { z } from 'astro/zod';
-import {
-  evenementSchema,
-  documentsSchema,
-  pageSchema,
-  sortieSchema,
-} from '../../src/lib/schemas';
+import { evenementSchema, pageSchema } from '../../src/lib/schemas';
 
 // En test, l'helper image() d'Astro est remplacé par une simple chaîne.
 const fakeImage = () => z.string();
@@ -22,23 +17,6 @@ describe('evenementSchema', () => {
   });
 });
 
-describe('documentsSchema', () => {
-  test('refuse un chemin de PDF hors de /documents/', () => {
-    const r = documentsSchema.safeParse({
-      category: 'Électricité',
-      items: [{ title: 'a', file: 'IMG/pdf/a.pdf' }],
-    });
-    expect(r.success).toBe(false);
-  });
-
-  test('accepte un PDF dans /documents/', () => {
-    const r = documentsSchema.safeParse({
-      category: 'Électricité',
-      items: [{ title: 'a', file: '/documents/a.pdf' }],
-    });
-    expect(r.success).toBe(true);
-  });
-});
 
 describe('pageSchema', () => {
   const base = { title: 'Qui sommes-nous ?', section: 'vie-du-club', order: 1, description: 'Présentation du club.' };
@@ -55,10 +33,3 @@ describe('pageSchema', () => {
   });
 });
 
-describe('sortieSchema', () => {
-  test('kind vaut « almanach » par défaut et l’année est bornée', () => {
-    const ok = sortieSchema(fakeImage).parse({ title: 'Lozère', year: 2012, cover: 'x.jpg' });
-    expect(ok.kind).toBe('almanach');
-    expect(sortieSchema(fakeImage).safeParse({ title: 'x', year: 1999, cover: 'x.jpg' }).success).toBe(false);
-  });
-});

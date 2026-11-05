@@ -1,6 +1,6 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { documentsSchema, evenementSchema, pageSchema, sortieSchema } from './lib/schemas';
+import { evenementSchema, pageSchema } from './lib/schemas';
 
 export { sections } from './lib/schemas';
 
@@ -14,14 +14,6 @@ const evenements = defineCollection({
   schema: evenementSchema,
 });
 
-const sorties = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/sorties' }),
-  schema: ({ image }) => sortieSchema(image),
-});
 
-const documents = defineCollection({
-  loader: glob({ pattern: '**/*.yaml', base: './src/content/documents' }),
-  schema: documentsSchema,
-});
 
-export const collections = { pages, evenements, sorties, documents };
+export const collections = { pages, evenements };

@@ -12,10 +12,8 @@ export const sections = [
 ] as const;
 export type Section = (typeof sections)[number];
 
-/** Signature de l'helper `image()` fourni par Astro aux schémas de collection. */
-type ImageHelper = () => z.ZodType;
-
-export const pageSchema = (image: ImageHelper) =>
+/** `image` : l'helper fourni par Astro aux schémas de collection (générique pour garder le type des images). */
+export const pageSchema = <T extends z.ZodType>(image: () => T) =>
   z.object({
     title: z.string().min(1),
     section: z.enum(sections),
@@ -40,26 +38,3 @@ export const evenementSchema = z
     message: 'La date de fin doit être postérieure ou égale à la date de début.',
     path: ['end'],
   });
-
-export const sortieSchema = (image: ImageHelper) =>
-  z.object({
-    title: z.string().min(1),
-    kind: z.enum(['almanach', 'routracs']).default('almanach'),
-    year: z.number().int().min(2000).max(2100),
-    date: z.coerce.date().optional(),
-    place: z.string().optional(),
-    cover: image(),
-    gallery: z.array(z.object({ src: image(), alt: z.string().min(1) })).default([]),
-  });
-
-export const documentsSchema = z.object({
-  category: z.string().min(1),
-  items: z.array(
-    z.object({
-      title: z.string().min(1),
-      file: z.string().regex(/^\/documents\/[^/]+\.pdf$/, 'Le fichier doit être un PDF dans /documents/.'),
-      thumb: z.string().optional(),
-      sizeKb: z.number().positive().optional(),
-    }),
-  ),
-});

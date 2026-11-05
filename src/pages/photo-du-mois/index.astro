@@ -1,0 +1,66 @@
+---
+import { getEntry, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const page = (await getEntry('pages', 'photo-du-mois'))!;
+const { Content } = await render(page);
+
+// Fichiers AAAAMM.jpg de src/assets/photo-du-mois, du plus récent au plus ancien.
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/photo-du-mois/*.jpg', { eager: true });
+const monthFmt = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const photos = await Promise.all(
+  Object.entries(files)
+    .map(([path, mod]) => {
+      const [, y, m] = path.match(/(\d{4})(\d{2})\.jpg$/)!;
+      const label = monthFmt.format(new Date(Date.UTC(Number(y), Number(m) - 1, 1)));
+      return { year: y, key: `${y}${m}`, label: label[0].toUpperCase() + label.slice(1), src: mod.default };
+    })
+    .sort((a, b) => b.key.localeCompare(a.key))
+    .map(async (p) => ({ ...p, full: (await getImage({ src: p.src, width: Math.min(p.src.width, 1600), format: 'webp' })).src })),
+);
+
+const [latest, ...older] = photos;
+const years = [...new Set(older.map((p) => p.year))];
+---
+
+<ArticleLayout title={page.data.title} description={page.data.description} section="photo-du-mois">
+  <Content />
+
+  <section aria-labelledby="latest-title" data-lightbox>
+    <h2 id="latest-title">{latest.label}</h2>
+    <Image
+      src={latest.src}
+      alt={`Photo du mois de ${latest.label.toLowerCase()}`}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 76rem) 70ch, 100vw"
+      class="latest"
+      data-full={latest.full}
+    />
+  </section>
+
+  {
+    years.map((year) => (
+      <section aria-labelledby={`annee-${year}`} data-lightbox>
+        <h2 id={`annee-${year}`}>{year}</h2>
+        <div class="gallery">
+          {older
+            .filter((p) => p.year === year)
+            .map((p) => (
+              <Image src={p.src} alt={`Photo du mois de ${p.label.toLowerCase()}`} widths={[240, 480]} sizes="12rem" data-full={p.full} />
+            ))}
+        </div>
+      </section>
+    ))
+  }
+</ArticleLayout>
+
+<style>
+  .latest {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+</style>

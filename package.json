@@ -19,10 +19,13 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
+    "@astrojs/markdown-remark": "^7.3.5",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/limelight": "^5.3.0",
+    "@types/hast": "^3.0.5",
     "astro": "^7.4.5",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "unist-util-visit": "^5.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

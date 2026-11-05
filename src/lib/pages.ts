@@ -11,3 +11,14 @@ export function pageRoute(filePath: string): PageRoute {
   const slug = name === 'index' ? undefined : name;
   return { section, slug, url: slug ? `/${section}/${slug}/` : `/${section}/` };
 }
+
+type Entry = { filePath?: string; data: { title: string; order: number } };
+
+/** Pages d'une rubrique (hors présentation), triées par ordre, avec leur adresse. */
+export function sectionChildren<T extends Entry>(entries: T[], section: string): { title: string; url: string }[] {
+  return entries
+    .map((entry) => ({ entry, route: pageRoute(entry.filePath!) }))
+    .filter(({ route }) => route.section === section && route.slug)
+    .sort((a, b) => a.entry.data.order - b.entry.data.order || a.entry.data.title.localeCompare(b.entry.data.title, 'fr'))
+    .map(({ entry, route }) => ({ title: entry.data.title, url: route.url }));
+}

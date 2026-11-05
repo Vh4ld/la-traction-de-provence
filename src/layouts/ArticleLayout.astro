@@ -1,0 +1,132 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import { nav } from '../data/nav';
+
+interface Props {
+  title: string;
+  description: string;
+  section: string;
+  cover?: ImageMetadata;
+  /** Autres pages de la rubrique, pour la navigation en bas de page. */
+  siblings?: { title: string; url: string }[];
+}
+
+const { title, description, section, cover, siblings = [] } = Astro.props;
+const sectionItem = nav.find((item) => item.href === `/${section}/`);
+const isSectionIndex = Astro.url.pathname === `/${section}/`;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container">
+    <nav class="crumbs" aria-label="Fil d’Ariane">
+      <ol role="list">
+        <li><a href="/">Accueil</a></li>
+        {sectionItem && !isSectionIndex && <li><a href={sectionItem.href}>{sectionItem.label}</a></li>}
+        <li aria-current="page">{title}</li>
+      </ol>
+    </nav>
+
+    <article class="article">
+      <h1>{title}</h1>
+      {cover && <Image src={cover} alt="" class="article__cover" widths={[320, 480, 720]} sizes="(min-width: 56rem) 22rem, 100vw" />}
+      <div class="prose">
+        <slot />
+      </div>
+    </article>
+
+    {
+      siblings.length > 0 && (
+        <nav class="siblings" aria-labelledby="siblings-title">
+          <h2 id="siblings-title">{isSectionIndex ? 'Dans cette rubrique' : `Aussi dans « ${sectionItem?.label ?? section} »`}</h2>
+          <ul role="list">
+            {siblings.map((s) => (
+              <li>
+                <a href={s.url} aria-current={s.url === Astro.url.pathname ? 'page' : undefined}>
+                  {s.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script>
+  import { initLightbox } from '../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-xs);
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .crumbs li + li::before {
+    content: '›';
+    margin-right: var(--space-xs);
+    color: var(--heading);
+  }
+
+  .article::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .article h1 {
+    margin-top: var(--space-s);
+  }
+
+  .article__cover {
+    width: min(100%, 22rem);
+    height: auto;
+    margin: 0 0 var(--space-l);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  @media (min-width: 56rem) {
+    .article__cover {
+      float: right;
+      margin: 0 0 var(--space-l) var(--space-xl);
+    }
+  }
+
+  .siblings {
+    margin-top: var(--space-2xl);
+    padding: var(--space-l);
+    background: var(--surface);
+    border-radius: var(--radius);
+    border-top: 4px solid var(--c-gold);
+  }
+
+  .siblings h2 {
+    margin-top: 0;
+    font-size: var(--step-1);
+  }
+
+  .siblings ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--space-xs) var(--space-l);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .siblings a[aria-current='page'] {
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>
