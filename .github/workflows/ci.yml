@@ -4,6 +4,8 @@ on:
   push:
     branches: ['**']
   pull_request:
+  # Réutilisé par le workflow de publication (release.yml).
+  workflow_call:
 
 permissions:
   contents: read

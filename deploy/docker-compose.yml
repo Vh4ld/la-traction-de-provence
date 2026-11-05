@@ -1,0 +1,26 @@
+# Site La Traction de Provence — à lancer sur le VPS :
+#   docker compose -f deploy/docker-compose.yml up -d
+# Nginx Proxy Manager renvoie la-traction-de-provence.fr vers http://traction_site:8080.
+# Watchtower met à jour le conteneur à chaque nouvelle image publiée sur GHCR.
+
+services:
+  traction_site:
+    image: ghcr.io/vh4ld/la-traction-de-provence:latest
+    container_name: traction_site
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - proxy-net
+    # Aucun port publié sur l'hôte : seul Nginx Proxy Manager y accède, par le réseau proxy-net.
+
+networks:
+  proxy-net:
+    external: true
