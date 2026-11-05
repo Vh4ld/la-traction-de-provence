@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page introuvable" description="Cette page n’existe pas ou plus sur le site de La Traction de Provence, club de la Citroën Traction Avant." noindex>
+  <div class="container prose not-found">
+    <h1>Page introuvable</h1>
+    <p>
+      Cette page n’existe pas ou n’existe plus. Le site a été entièrement refait : certaines adresses de l’ancien site ont
+      changé.
+    </p>
+    <p><a href="/">Retour à l’accueil</a></p>
+    <p>Vous cherchez peut-être :</p>
+    <ul>
+      <li><a href="/vie-du-club/">La vie du club</a></li>
+      <li><a href="/mains-sales/">Les mains sales</a> : la documentation technique</li>
+      <li><a href="/de-34-a-57/">De 34 à 57</a> : catalogues et publicités d’époque</li>
+      <li><a href="/vie-du-club/nous-contacter/">Nous contacter</a></li>
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-xl);
+  }
+</style>

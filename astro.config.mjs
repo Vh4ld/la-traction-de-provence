@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { rehypeContent } from './src/lib/rehype-content.ts';
+import { obfuscateEmailsIntegration } from './src/lib/obfuscate-emails.ts';
 
 export default defineConfig({
   site: 'https://la-traction-de-provence.fr',
@@ -19,5 +20,5 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [rehypeContent],
   },
-  integrations: [sitemap({ filter: (page) => !page.includes('/404') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/404') }), obfuscateEmailsIntegration()],
 });

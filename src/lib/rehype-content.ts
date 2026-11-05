@@ -40,11 +40,11 @@ export function rehypeContent(options: { publicDir?: string } = {}) {
         return;
       }
       if (el.tagName !== 'a') return;
-      const href = pdfHref(el);
-      if (!href || el.children.some(isImage)) return;
+      const pdf = pdfHref(el);
+      if (!pdf || el.children.some(isImage)) return;
       let size = '';
       try {
-        size = `, ${formatSize(statSync(join(publicDir, decodeURIComponent(href))).size)}`;
+        size = `, ${formatSize(statSync(join(publicDir, decodeURIComponent(pdf))).size)}`;
       } catch {
         // Fichier absent : la vérification des liens le signalera.
       }

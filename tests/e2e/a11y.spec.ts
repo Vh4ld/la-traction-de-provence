@@ -7,7 +7,7 @@ function pageUrls(): string[] {
   const sitemap = 'dist/sitemap-0.xml';
   if (!existsSync(sitemap)) return ['/'];
   const xml = readFileSync(sitemap, 'utf8');
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+  return [...[...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname), '/404.html'];
 }
 
 for (const url of pageUrls()) {

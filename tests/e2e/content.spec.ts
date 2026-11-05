@@ -84,3 +84,15 @@ test.describe('photo du mois', () => {
     expect(await page.locator('main .gallery img').count()).toBe(102);
   });
 });
+
+test.describe('adresses électroniques', () => {
+  for (const url of ['/vie-du-club/nous-contacter/', '/infos/mentions-legales/']) {
+    test(`masquées dans le code source mais cliquables : ${url}`, async ({ page, request }) => {
+      const html = await (await request.get(url)).text();
+      expect(html).not.toMatch(/[a-z0-9.]+@[a-z0-9-]+\.(com|fr)/i);
+      await page.goto(url);
+      const link = page.locator('main a[href^="mailto:"]').first();
+      await expect(link).toHaveText('latractiondeprovence@gmail.com');
+    });
+  }
+});

@@ -17,11 +17,13 @@ const jsonLd = {
   '@type': 'NGO',
   name: SITE_NAME,
   url: Astro.site?.href,
-  logo: new URL('/favicon.svg', Astro.site).href,
+  logo: new URL('/apple-touch-icon.png', Astro.site).href,
   description:
     'Association loi 1901 des Pennes-Mirabeau qui réunit les passionnés de la Citroën Traction Avant (1934 – 1957).',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: '195, avenue François Mitterrand',
+    postalCode: '13170',
     addressLocality: 'Les Pennes-Mirabeau',
     addressRegion: 'Provence-Alpes-Côte d’Azur',
     addressCountry: 'FR',
