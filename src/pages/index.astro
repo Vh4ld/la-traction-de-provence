@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Banner from '../components/Banner.astro';
+import EventList from '../components/EventList.astro';
+---
+
+<BaseLayout description="La Traction de Provence, association loi 1901 des Pennes-Mirabeau, réunit les passionnés de la Citroën Traction Avant (1934 – 1957).">
+  <div class="container">
+    <Banner />
+    <div class="home">
+      <section class="home__intro prose" aria-labelledby="bienvenue">
+        <h2 id="bienvenue">Bienvenue</h2>
+        <p>
+          La Traction de Provence est une association de loi 1901 installée depuis de nombreuses années sur la commune
+          des Pennes-Mirabeau. Elle réunit les passionnés de la Citroën Traction Avant, produite de 1934 à 1957.
+        </p>
+        <p>
+          Sorties, entraide mécanique et documentation d’époque : découvrez <a href="/vie-du-club/">la vie du club</a>,
+          nos <a href="/routracs/">Routracs</a> et notre fonds technique <a href="/mains-sales/">« Les mains sales »</a>.
+        </p>
+        <p><a class="home__cta" href="/vie-du-club/nous-rejoindre/">Nous rejoindre</a></p>
+      </section>
+      <EventList />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .home {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .home__intro h2 {
+    margin-top: 0;
+  }
+
+  .home__cta {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-l);
+    font-weight: 700;
+    color: var(--c-black);
+    background: var(--c-gold);
+    border-radius: 999px;
+    text-decoration: none;
+  }
+
+  .home__cta:hover {
+    color: var(--c-black);
+    background: #ffe27a;
+  }
+</style>

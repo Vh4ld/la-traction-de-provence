@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+
+interface Props {
+  /** Sur l'accueil, le nom du club est le titre principal (h1). */
+  isHome?: boolean;
+}
+const { isHome = false } = Astro.props;
+const Title = isHome ? 'h1' : 'p';
+---
+
+<header class="band">
+  <div class="container band__inner">
+    <a class="band__home" href="/" aria-label={isHome ? undefined : 'La Traction de Provence, accueil'}>
+      <Image src={logo} alt="" class="band__logo" width={112} densities={[1, 1.83]} loading="eager" />
+      <Title class="band__title">La Traction de Provence</Title>
+    </a>
+  </div>
+</header>
+
+<style>
+  .band {
+    background: var(--band-bg);
+    border-bottom: 3px solid var(--c-black);
+  }
+
+  .band__inner {
+    padding-block: var(--space-s);
+  }
+
+  .band__home {
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--space-s), 3vw, var(--space-xl));
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .band__logo {
+    width: clamp(64px, 12vw, 112px);
+    height: auto;
+    flex: none;
+  }
+
+  .band__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--step-4);
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--band-title);
+    text-shadow: 2px 2px 0 var(--c-black);
+  }
+
+  .band__home:hover .band__title {
+    color: #ffe27a;
+  }
+</style>

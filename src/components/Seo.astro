@@ -1,0 +1,48 @@
+---
+interface Props {
+  title?: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const SITE_NAME = 'La Traction de Provence';
+const { title, description, image = '/og-default.jpg', noindex = false } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: SITE_NAME,
+  url: Astro.site?.href,
+  logo: new URL('/apple-touch-icon.png', Astro.site).href,
+  description:
+    'Association loi 1901 des Pennes-Mirabeau qui réunit les passionnés de la Citroën Traction Avant (1934 – 1957).',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '195, avenue François Mitterrand',
+    postalCode: '13170',
+    addressLocality: 'Les Pennes-Mirabeau',
+    addressRegion: 'Provence-Alpes-Côte d’Azur',
+    addressCountry: 'FR',
+  },
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+
+{Astro.url.pathname === '/' && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

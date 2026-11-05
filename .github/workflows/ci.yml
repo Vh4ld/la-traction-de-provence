@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  # Réutilisé par le workflow de publication (release.yml).
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  # Le nom du workflow distingue la CI directe de la CI appelée par « Publication » (même branche).
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests (compilation, liens, accessibilité)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Installer Chromium pour Playwright
+        run: npx playwright install --with-deps chromium
+
+      - run: npm test
+
+      - name: Rapport Playwright
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  container:
+    name: Image Docker (nginx, en-têtes, redirections)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construire l'image
+        run: docker build -t traction-site:ci .
+
+      - name: Vérifier la configuration nginx
+        run: docker run --rm traction-site:ci nginx -t
+
+      - name: Démarrer le conteneur comme en production
+        run: |
+          docker run -d --name site --read-only --tmpfs /tmp \
+            --cap-drop ALL --security-opt no-new-privileges \
+            -p 8080:8080 traction-site:ci
+          for i in $(seq 1 30); do curl -fs http://localhost:8080/healthz && break; sleep 1; done
+
+      - name: Vérifier pages, en-têtes et redirections
+        run: tests/container/check.sh http://localhost:8080
+
+      - name: Journaux du conteneur
+        if: always()
+        run: docker logs site

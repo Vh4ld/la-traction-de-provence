@@ -1,0 +1,333 @@
+@import '@fontsource/limelight/latin-400.css';
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--space-l);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+
+main {
+  flex: 1;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--heading);
+  line-height: 1.2;
+  margin: var(--space-xl) 0 var(--space-s);
+  text-wrap: balance;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--step-3);
+  letter-spacing: 0.02em;
+  margin-top: var(--space-l);
+}
+
+/* Clin d'œil à l'original : sous-titres en italique */
+h2 {
+  font-size: var(--step-2);
+  font-style: italic;
+}
+
+h3 {
+  font-size: var(--step-1);
+  font-style: italic;
+}
+
+p,
+ul,
+ol {
+  margin: 0 0 var(--space-m);
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.container {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+}
+
+.prose > * {
+  max-width: var(--prose-width);
+}
+
+/* Les galeries occupent toute la largeur, le texte reste à une longueur de ligne lisible. */
+.prose > .gallery,
+.prose > section {
+  max-width: none;
+}
+
+.prose img {
+  border-radius: var(--radius);
+  margin-block: var(--space-m);
+}
+
+.prose table {
+  border-collapse: collapse;
+  margin-block: var(--space-m);
+  display: block;
+  overflow-x: auto;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: var(--space-xs) var(--space-s);
+  text-align: left;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-m);
+  top: -100px;
+  z-index: 100;
+  padding: var(--space-xs) var(--space-m);
+  background: var(--c-gold);
+  color: var(--c-black);
+  font-weight: 700;
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  top: var(--space-m);
+}
+
+.notice {
+  padding: var(--space-m) var(--space-l);
+  background: var(--surface);
+  border-left: 4px solid var(--c-gold);
+  border-radius: var(--radius);
+}
+
+/* ---------- Galeries ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+  gap: var(--space-s);
+  margin-block: var(--space-m) var(--space-l);
+}
+
+.prose .gallery img,
+.gallery img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin: 0;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+/* Couvertures de catalogues : on montre la page entière. */
+.gallery a img {
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+}
+
+.gallery a {
+  display: block;
+  border-radius: var(--radius);
+  transition: transform 0.15s;
+}
+
+.gallery a:hover {
+  transform: translateY(-2px);
+}
+
+.zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
+
+.zoom img {
+  transition: filter 0.15s;
+}
+
+.zoom:hover img {
+  filter: brightness(1.1);
+}
+
+/* ---------- Liens vers les PDF ---------- */
+.doc-link .doc-meta {
+  font-size: var(--step--1);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.doc-link::before {
+  content: 'PDF';
+  display: inline-block;
+  margin-right: 0.4em;
+  padding: 0.05em 0.35em;
+  font-size: 0.7em;
+  font-weight: 700;
+  line-height: 1.4;
+  vertical-align: 0.15em;
+  color: var(--c-black);
+  background: var(--c-gold);
+  border-radius: 3px;
+}
+
+/* ---------- Visionneuse ---------- */
+.lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: var(--space-xl) var(--space-m);
+  border: 0;
+  background: rgb(15 15 15 / 0.96);
+  color: #f2f2f2;
+}
+
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+
+.lightbox::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+
+.lightbox figure {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-s);
+  max-height: 100%;
+}
+
+.lightbox img {
+  /* Les anciennes photos sont parfois petites : on les agrandit jusqu'à 1000 px de large. */
+  width: min(100%, 1000px);
+  max-height: calc(100dvh - 9rem);
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.lightbox figcaption {
+  font-style: italic;
+  text-align: center;
+}
+
+.lightbox__count {
+  position: absolute;
+  top: var(--space-m);
+  left: var(--space-m);
+  margin: 0;
+  font-size: var(--step--1);
+}
+
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  font: 700 1.8rem/1 var(--font-body);
+  color: var(--c-black);
+  background: var(--c-gold);
+  border: 2px solid var(--c-black);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.lightbox__btn[hidden] {
+  display: none;
+}
+
+.lightbox__btn:focus-visible {
+  outline: 3px solid #ffffff;
+}
+
+.lightbox__close {
+  top: var(--space-m);
+  right: var(--space-m);
+}
+
+.lightbox__prev,
+.lightbox__next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox__prev {
+  left: var(--space-s);
+}
+
+.lightbox__next {
+  right: var(--space-s);
+}
