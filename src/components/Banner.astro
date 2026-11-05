@@ -1,0 +1,148 @@
+---
+import { Picture } from 'astro:assets';
+import p1 from '../assets/banner/1.jpg';
+import p2 from '../assets/banner/2.jpg';
+import p3 from '../assets/banner/3.jpg';
+import p4 from '../assets/banner/4.jpg';
+import p5 from '../assets/banner/5.jpg';
+import p6 from '../assets/banner/6.jpg';
+
+// Les six photos du bandeau du site d'origine.
+const slides = [
+  { src: p1, alt: 'Tractions Avant alignées sur le Vieux-Port de Marseille, Notre-Dame de la Garde en arrière-plan.' },
+  { src: p2, alt: 'Cabriolet Traction Avant crème garé face à un étang bordé de verdure.' },
+  { src: p3, alt: 'Tractions Avant en rallye au pied des dunes de sable du désert.' },
+  { src: p4, alt: 'Épave de Traction Avant rouillée, calandre aux chevrons, oubliée dans une grange.' },
+  { src: p5, alt: 'Rassemblement de Tractions Avant garées le long d’une allée ombragée.' },
+  { src: p6, alt: 'Aile et roue d’une Traction Avant noire, une autre Traction garée dans l’herbe.' },
+];
+---
+
+<section class="banner" aria-roledescription="carrousel" aria-label="Photos du club">
+  <div class="banner__track" data-banner-track tabindex="0" aria-label="Photos, faire défiler horizontalement">
+    {
+      slides.map((slide, i) => (
+        <div
+          class="banner__slide"
+          role="group"
+          aria-roledescription="diapositive"
+          aria-label={`${i + 1} sur ${slides.length}`}
+        >
+          <Picture
+            src={slide.src}
+            alt={slide.alt}
+            formats={['avif', 'webp']}
+            widths={[640, 1024, 1216]}
+            sizes="(min-width: 76rem) 72rem, 100vw"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="banner__controls" data-banner-controls hidden>
+    <button type="button" class="banner__btn" data-banner-prev aria-label="Photo précédente">‹</button>
+    <button type="button" class="banner__btn banner__btn--pause" data-banner-pause aria-label="Mettre le diaporama en pause">
+      <span aria-hidden="true" class="banner__pause-icon"></span>
+    </button>
+    <button type="button" class="banner__btn" data-banner-next aria-label="Photo suivante">›</button>
+  </div>
+  <p class="visually-hidden" data-banner-status aria-live="off">Photo 1 sur {slides.length}</p>
+</section>
+
+<script>
+  import { initBanner } from '../scripts/banner';
+  document.querySelectorAll<HTMLElement>('.banner').forEach(initBanner);
+</script>
+
+<style>
+  .banner {
+    position: relative;
+    margin-block: var(--space-l);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--c-black);
+  }
+
+  .banner__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .banner__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .banner__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    aspect-ratio: 5 / 2;
+  }
+
+  @media (max-width: 40rem) {
+    .banner__slide {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  .banner__slide :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .banner__controls {
+    position: absolute;
+    right: var(--space-s);
+    bottom: var(--space-s);
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .banner__controls[hidden] {
+    display: none;
+  }
+
+  .banner__btn {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    font: 700 1.6rem/1 var(--font-body);
+    color: var(--c-black);
+    background: var(--c-gold);
+    border: 2px solid var(--c-black);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .banner__btn:hover {
+    background: #ffe27a;
+  }
+
+  .banner__btn:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  .banner__pause-icon {
+    width: 0.8rem;
+    height: 0.9rem;
+    border-inline: 0.28rem solid currentColor;
+  }
+
+  .banner__btn--pause[aria-pressed='true'] .banner__pause-icon {
+    width: 0;
+    height: 0;
+    border-block: 0.5rem solid transparent;
+    border-inline: 0.8rem solid currentColor;
+    border-right-width: 0;
+    margin-left: 0.2rem;
+  }
+</style>

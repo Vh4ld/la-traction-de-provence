@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import { parisDay, upcomingEvents } from '../lib/events';
+
+const all = (await getCollection('evenements')).map((e) => e.data);
+const events = upcomingEvents(all, new Date());
+
+const dayFmt = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const shortFmt = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', day: 'numeric', month: 'long' });
+
+function when(start: Date, end?: Date): string {
+  if (!end || parisDay(end) === parisDay(start)) return dayFmt.format(start);
+  return `du ${shortFmt.format(start)} au ${dayFmt.format(end).replace(/^\S+ /, '')}`;
+}
+---
+
+<section class="events" aria-labelledby="events-title">
+  <h2 id="events-title">Prochains événements</h2>
+  <p class="events__tagline">C’est bientôt, nous vous attendons !</p>
+  <ul class="events__list" role="list">
+    {
+      events.map((e) => (
+        <li class="events__item" data-event-end={parisDay(e.end ?? e.start)}>
+          <time datetime={parisDay(e.start)}>{when(e.start, e.end)}</time>
+          <p class="events__title">{e.link ? <a href={e.link}>{e.title}</a> : e.title}</p>
+          {e.place && <p class="events__place">{e.place}</p>}
+        </li>
+      ))
+    }
+  </ul>
+  <p class="events__empty" data-events-empty hidden={events.length > 0}>Aucun événement prévu pour le moment.</p>
+</section>
+
+<script>
+  import { hidePastEvents } from '../scripts/events';
+  hidePastEvents(document, new Date());
+</script>
+
+<style>
+  .events {
+    padding: var(--space-l);
+    background: var(--surface);
+    border-top: 4px solid var(--c-gold);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .events h2 {
+    margin-top: 0;
+  }
+
+  .events__tagline {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .events__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .events__item {
+    padding-left: var(--space-m);
+    border-left: 3px solid var(--c-navy);
+  }
+
+  .events__item time {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: capitalize;
+    color: var(--heading);
+  }
+
+  .events__item p {
+    margin: 0;
+  }
+
+  .events__title {
+    font-size: var(--step-1);
+    font-style: italic;
+  }
+
+  .events__place {
+    color: var(--text-muted);
+  }
+
+  .events__empty {
+    margin: 0;
+  }
+</style>
