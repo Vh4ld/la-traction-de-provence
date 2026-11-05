@@ -305,6 +305,10 @@ a:hover {
   cursor: pointer;
 }
 
+.lightbox__btn[hidden] {
+  display: none;
+}
+
 .lightbox__btn:focus-visible {
   outline: 3px solid #ffffff;
 }

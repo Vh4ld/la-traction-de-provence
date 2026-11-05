@@ -68,6 +68,16 @@ test.describe('galerie et visionneuse', () => {
     await expect(page.locator('dialog.lightbox[open]')).toBeVisible();
   });
 
+  test('une seule image : pas de boutons Précédent / Suivant inutiles', async ({ page }) => {
+    await page.goto('/almanach/');
+    await page.locator('main .zoom').first().click();
+    const dialog = page.locator('dialog.lightbox[open]');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: 'Photo suivante' })).toBeHidden();
+    await expect(dialog.getByRole('button', { name: 'Photo précédente' })).toBeHidden();
+    await expect(dialog.getByRole('button', { name: 'Fermer' })).toBeVisible();
+  });
+
   test('une image qui mène à un PDF reste un lien, sans visionneuse', async ({ page }) => {
     await page.goto('/mains-sales/outils/');
     const link = page.locator('main a[href$=".pdf"]:has(img)').first();

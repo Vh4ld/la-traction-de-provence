@@ -24,6 +24,8 @@ jobs:
   publish:
     name: Image sur GHCR
     needs: checks
+    # Un lancement manuel depuis une autre branche (test) ne doit jamais partir en production.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
