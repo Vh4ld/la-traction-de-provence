@@ -1,0 +1,76 @@
+/*
+ * Identité visuelle reprise du site d'origine (thème « feria-blue ») :
+ * fond quasi noir, bandeau gris ardoise, bleu marine, or.
+ */
+:root {
+  color-scheme: dark light;
+
+  /* Palette d'origine */
+  --c-black: #1f1f1f;
+  --c-slate: #5c5a5a;
+  --c-navy: #07286d;
+  --c-navy-deep: #051d50;
+  --c-gold: #fac608;
+  --c-gold-2: #f4c418;
+  --c-tint: #d3dbee;
+  --c-cream: #f6f1e4;
+
+  /* Rôles : thème sombre (par défaut, fidèle à l'original) */
+  --bg: var(--c-black);
+  --surface: #292828;
+  --surface-2: #333131;
+  --text: #ecebe8;
+  --text-muted: #b9b6b0;
+  --heading: var(--c-gold);
+  --link: var(--c-gold);
+  --link-hover: #ffe27a;
+  --border: #464343;
+  --focus: var(--c-gold);
+
+  /* Bandeau et menu : identiques dans les deux thèmes */
+  --band-bg: var(--c-slate);
+  --band-title: var(--c-gold);
+  --nav-bg: var(--c-navy);
+  --nav-text: #ffffff;
+  --nav-accent: var(--c-gold);
+
+  /* Typographie */
+  --font-display: 'Limelight', 'Georgia', serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.12rem + 0.4vw, 1.45rem);
+  --step-2: clamp(1.44rem, 1.3rem + 0.7vw, 1.9rem);
+  --step-3: clamp(1.73rem, 1.5rem + 1.15vw, 2.5rem);
+  --step-4: clamp(1.6rem, 1.1rem + 2.6vw, 3.2rem);
+
+  /* Espacements */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem;
+  --space-l: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  --radius: 6px;
+  --shadow: 0 2px 10px rgb(0 0 0 / 0.35);
+  --content-width: 72rem;
+  --prose-width: 70ch;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: var(--c-cream);
+    --surface: #ffffff;
+    --surface-2: #efe8d6;
+    --text: #1f1f1f;
+    --text-muted: #4a4845;
+    --heading: var(--c-navy);
+    --link: var(--c-navy);
+    --link-hover: #0a3a9c;
+    --border: #d8cfb9;
+    --focus: var(--c-navy);
+    --shadow: 0 2px 10px rgb(31 31 31 / 0.12);
+  }
+}

@@ -1,0 +1,93 @@
+---
+import { footerLinks } from '../data/nav';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>
+      <p class="footer__name">La Traction de Provence</p>
+      <p>Association loi 1901 des amateurs de Citroën Traction Avant · Les Pennes-Mirabeau (Bouches-du-Rhône)</p>
+    </div>
+    <ul class="footer__links" role="list">
+      {
+        footerLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+      <li><a href="/documents/bulletin-adhesion.pdf">Bulletin d’adhésion (PDF)</a></li>
+    </ul>
+    <p class="footer__notice">
+      Contenu © La Traction de Provence et ses auteurs, tous droits réservés. <span>© {year}</span>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--space-2xl);
+    background: var(--c-navy);
+    color: #e8ecf6;
+    border-top: 3px solid var(--c-gold);
+    font-size: var(--step--1);
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: var(--space-m) var(--space-xl);
+    padding-block: var(--space-xl);
+  }
+
+  @media (min-width: 48rem) {
+    .footer__inner {
+      grid-template-columns: 1fr auto;
+    }
+
+    .footer__notice {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .footer p {
+    margin: 0 0 var(--space-2xs);
+  }
+
+  .footer__name {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--c-gold);
+  }
+
+  .footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .footer a {
+    color: #ffffff;
+  }
+
+  .footer a:hover {
+    color: var(--c-gold);
+  }
+
+  .footer__notice {
+    padding-top: var(--space-m);
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    color: #c9d2e8;
+  }
+
+  .footer__notice span {
+    white-space: nowrap;
+  }
+
+  .footer :focus-visible {
+    outline-color: var(--c-gold);
+  }
+</style>

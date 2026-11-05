@@ -1,0 +1,263 @@
+---
+import { nav } from '../data/nav';
+
+const current = Astro.url.pathname;
+const isCurrent = (href: string) => (current === href ? 'page' : undefined);
+const inSection = (href: string) => current.startsWith(href);
+---
+
+<nav class="nav" aria-label="Menu principal">
+  <div class="container">
+    <!-- Bureau : sous-menus en « disclosure » (boutons aria-expanded). Sans JS : survol et focus. -->
+    <ul class="nav__bar" role="list">
+      {
+        nav.map((item, i) =>
+          item.children ? (
+            <li class="nav__item">
+              <button
+                type="button"
+                class:list={['nav__toggle', { 'is-section': inSection(item.href) }]}
+                aria-expanded="false"
+                aria-controls={`sous-menu-${i}`}
+              >
+                {item.label}
+              </button>
+              <ul class="nav__sub" id={`sous-menu-${i}`} role="list">
+                <li>
+                  <a href={item.href} aria-current={isCurrent(item.href)}>
+                    {item.label} : présentation
+                  </a>
+                </li>
+                {item.children.map((child) => (
+                  <li>
+                    <a href={child.href} aria-current={isCurrent(child.href)}>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li class="nav__item">
+              <a
+                class:list={['nav__link', { 'is-section': inSection(item.href) }]}
+                href={item.href}
+                aria-current={isCurrent(item.href)}
+              >
+                {item.label}
+              </a>
+            </li>
+          ),
+        )
+      }
+    </ul>
+
+    <!-- Mobile : un <details> natif, utilisable sans JavaScript. -->
+    <details class="nav__mobile">
+      <summary>Menu</summary>
+      <ul role="list">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href)}>
+                {item.label}
+              </a>
+              {item.children && (
+                <ul role="list">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} aria-current={isCurrent(child.href)}>
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+  </div>
+</nav>
+
+<script>
+  import { initNav } from '../scripts/nav';
+  initNav();
+</script>
+
+<style>
+  .nav {
+    background: var(--nav-bg);
+    color: var(--nav-text);
+    border-bottom: 3px solid var(--c-gold);
+    position: relative;
+    z-index: 20;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* ---------- Bureau ---------- */
+  .nav__bar {
+    display: none;
+  }
+
+  .nav__mobile {
+    display: block;
+  }
+
+  @media (min-width: 64rem) {
+    .nav__bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+    }
+
+    .nav__mobile {
+      display: none;
+    }
+  }
+
+  .nav__item {
+    position: relative;
+  }
+
+  .nav__toggle,
+  .nav__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-height: 3rem;
+    padding: var(--space-xs) var(--space-m);
+    font: inherit;
+    font-size: var(--step-0);
+    font-style: italic;
+    color: var(--nav-text);
+    background: none;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+  }
+
+  .nav__toggle::after {
+    content: '';
+    width: 0.45em;
+    height: 0.45em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-0.15em) rotate(45deg);
+    transition: transform 0.15s;
+  }
+
+  .nav__toggle[aria-expanded='true']::after {
+    transform: translateY(0.1em) rotate(-135deg);
+  }
+
+  .nav__toggle:hover,
+  .nav__link:hover,
+  .nav__toggle[aria-expanded='true'] {
+    color: var(--nav-accent);
+  }
+
+  .is-section,
+  .nav__link[aria-current='page'] {
+    border-bottom-color: var(--nav-accent);
+  }
+
+  .nav__sub {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 20rem;
+    padding: var(--space-xs) 0;
+    background: var(--c-navy-deep);
+    border: 1px solid var(--c-gold);
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .nav__sub a {
+    display: block;
+    padding: var(--space-xs) var(--space-m);
+  }
+
+  .nav__sub a:hover,
+  .nav__sub a[aria-current='page'] {
+    color: var(--nav-accent);
+    background: rgb(255 255 255 / 0.06);
+  }
+
+  /* Sans JavaScript : ouverture au survol et au focus clavier. */
+  :global(html:not(.js)) .nav__item:hover > .nav__sub,
+  :global(html:not(.js)) .nav__item:focus-within > .nav__sub,
+  /* Avec JavaScript : uniquement via le bouton. */
+  .nav__toggle[aria-expanded='true'] + .nav__sub {
+    display: block;
+  }
+
+  /* ---------- Mobile ---------- */
+  .nav__mobile summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    min-height: 3rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .nav__mobile summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav__mobile summary::before {
+    content: '';
+    width: 1.25rem;
+    height: 0.875rem;
+    background:
+      linear-gradient(currentColor 0 0) top / 100% 2px no-repeat,
+      linear-gradient(currentColor 0 0) center / 100% 2px no-repeat,
+      linear-gradient(currentColor 0 0) bottom / 100% 2px no-repeat;
+  }
+
+  .nav__mobile[open] summary {
+    color: var(--nav-accent);
+  }
+
+  .nav__mobile > ul {
+    padding-bottom: var(--space-m);
+  }
+
+  .nav__mobile li a {
+    display: block;
+    padding: var(--space-xs) 0;
+    min-height: 2.75rem;
+  }
+
+  .nav__mobile > ul > li > a {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--nav-accent);
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+  }
+
+  .nav__mobile ul ul {
+    padding-left: var(--space-m);
+  }
+
+  .nav__mobile a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--nav-accent);
+    text-underline-offset: 0.25em;
+  }
+</style>

@@ -13,13 +13,14 @@
     "preview": "astro preview --port 4321",
     "astro": "astro",
     "test:unit": "vitest run",
-    "test:links": "linkinator dist --recurse --skip \"^https?://\"",
+    "test:links": "linkinator dist --recurse --skip \"^https?://(?!localhost|127\\\\.0\\\\.0\\\\.1)\"",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run build && npm run test:links && npm run test:e2e"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
     "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/limelight": "^5.3.0",
     "astro": "^7.4.5",
     "typescript": "^6.0.3"
   },

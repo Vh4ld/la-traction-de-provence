@@ -1,16 +1,13 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>La Traction de Provence</title>
-	</head>
-	<body>
-		<main>
-			<h1>La Traction de Provence</h1>
-		</main>
-	</body>
-</html>
+<BaseLayout description="La Traction de Provence, association loi 1901 des Pennes-Mirabeau, réunit les passionnés de la Citroën Traction Avant (1934 – 1957).">
+  <div class="container prose">
+    <h2>Bienvenue</h2>
+    <p>
+      La Traction de Provence est une association de loi 1901 installée depuis de nombreuses années sur la commune
+      des Pennes-Mirabeau.
+    </p>
+  </div>
+</BaseLayout>
