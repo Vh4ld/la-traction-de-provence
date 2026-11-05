@@ -6,13 +6,14 @@
  * Usage : npx tsx scripts/migrate/run.ts --backup <dossier IMG> --out scripts/.cache/migrate
  */
 import { copyFile, mkdir, readdir, writeFile, stat } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import { parseArgs } from 'node:util';
-import { listSnapshots, pickSnapshot, type CdxRow } from './cdx';
+import { CUTOFF, listSnapshots, pickSnapshot, type CdxRow } from './cdx';
+import { readFileSync } from 'node:fs';
 import { ArchiveUnavailableError, fetchWayback } from './fetch';
 import { extractArticle, toMarkdown } from './extract';
-import { importImage, spipKey, validateMedia, vignetteToOriginal } from './assets';
+import { importImage, validateMedia } from './assets';
+import { findLocal, scanBackup } from './backup';
 
 const HOSTS = ['s631887927.onlinehome.fr', 'www.la-traction-de-provence.fr', 'la-traction-de-provence.fr'];
 
@@ -41,67 +42,47 @@ type Report = {
   error?: string;
 };
 
-async function snapshotsFor(path: string): Promise<{ rows: CdxRow[]; url: string }[]> {
-  const out = [];
+/**
+ * Capture à utiliser : la plus récente avant la date limite, en interrogeant d'abord l'hébergement
+ * d'origine ; les autres domaines ne sont consultés que si rien n'a été trouvé (l'archive limite le débit).
+ */
+async function bestCapture(paths: string[], cutoff = CUTOFF): Promise<{ ts: string; url: string } | null> {
   for (const host of HOSTS) {
-    const url = `http://${host}/${path}`;
-    try {
-      out.push({ rows: await listSnapshots(url), url });
-    } catch (e) {
-      log('CDX échec', url, String(e));
-    }
-    await sleep(1000);
-  }
-  return out;
-}
-
-/** Meilleure capture (la plus récente avant la date limite) parmi les variantes d'URL. */
-async function bestCapture(paths: string[]): Promise<{ ts: string; url: string } | null> {
-  let best: { ts: string; url: string } | null = null;
-  for (const path of paths) {
-    for (const { rows, url } of await snapshotsFor(path)) {
-      const ts = pickSnapshot(rows);
-      if (ts && (!best || ts > best.ts)) best = { ts, url };
-    }
-  }
-  return best;
-}
-
-/** Index de la sauvegarde : nom de fichier → chemins, et clé SPIP → chemins. */
-async function indexBackup(dir: string) {
-  const byName = new Map<string, string[]>();
-  const byKey = new Map<string, string[]>();
-  const walk = async (d: string) => {
-    for (const entry of await readdir(d, { withFileTypes: true })) {
-      const p = join(d, entry.name);
-      if (entry.isDirectory()) await walk(p);
-      else if (/\.(jpe?g|png|gif|pdf)$/i.test(entry.name)) {
-        byName.set(entry.name, [...(byName.get(entry.name) ?? []), p]);
-        byKey.set(spipKey(entry.name), [...(byKey.get(spipKey(entry.name)) ?? []), p]);
+    let best: { ts: string; url: string } | null = null;
+    for (const path of paths) {
+      const url = `http://${host}/${path}`;
+      try {
+        const ts = pickSnapshot(await cachedSnapshots(url), cutoff);
+        if (ts && (!best || ts > best.ts)) best = { ts, url };
+      } catch (e) {
+        log('CDX échec', url, String(e));
       }
     }
-  };
-  await walk(dir);
-  return { byName, byKey };
-}
-
-const backup = await indexBackup(BACKUP);
-log(`Sauvegarde indexée : ${backup.byName.size} fichiers`);
-
-/** Trouve un fichier dans la sauvegarde locale. */
-function localFile(ref: string): string | null {
-  if (ref.startsWith('IMG/')) {
-    const p = join(BACKUP, ref.slice(4));
-    if (existsSync(p)) return p;
-    return backup.byName.get(basename(ref))?.[0] ?? null;
-  }
-  if (ref.startsWith('local/cache-vignettes/')) {
-    const o = vignetteToOriginal(ref);
-    const hits = 'exact' in o ? backup.byName.get(o.exact) : backup.byKey.get(o.key);
-    return hits && hits.length === 1 ? hits[0] : null;
+    if (best) return best;
   }
   return null;
 }
+
+/** Cache des réponses CDX entre deux exécutions (l'archive est lente et limite le débit). */
+const CDX_CACHE = 'scripts/.cache/cdx-cache.json';
+const cdxCache: Record<string, CdxRow[]> = (() => {
+  try {
+    return JSON.parse(readFileSync(CDX_CACHE, 'utf8'));
+  } catch {
+    return {};
+  }
+})();
+async function cachedSnapshots(url: string): Promise<CdxRow[]> {
+  if (!(url in cdxCache)) {
+    cdxCache[url] = await listSnapshots(url);
+    await writeFile(CDX_CACHE, JSON.stringify(cdxCache));
+    await sleep(800);
+  }
+  return cdxCache[url];
+}
+
+const backup = await scanBackup(BACKUP);
+log(`Sauvegarde indexée : ${backup.byName.size} fichiers`);
 
 await mkdir(join(OUT, 'pages'), { recursive: true });
 await mkdir(join(OUT, 'images'), { recursive: true });
@@ -114,10 +95,11 @@ const rejected: { ref: string; reason: string }[] = [];
 async function importAsset(ref: string): Promise<string | null> {
   if (imported.has(ref)) return imported.get(ref)!;
   const isPdf = /\.pdf$/i.test(ref);
-  let src = localFile(ref);
+  let src = findLocal(backup, ref);
   let origin = 'sauvegarde';
   if (!src) {
-    const cap = await bestCapture([ref]);
+    // Médias : toute capture convient, le fichier est de toute façon validé (et ré-encodé pour les images).
+    const cap = await bestCapture([ref], '99999999999999');
     if (!cap) return null;
     try {
       const buf = await fetchWayback(cap.ts, cap.url);

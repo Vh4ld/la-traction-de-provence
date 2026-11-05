@@ -12,6 +12,26 @@ const ALLOWED_HOSTS = [
   'wikipedia.org',
   'traction-avant.com',
   'citroen-origins.fr',
+  // Vidéos et albums photo du club
+  'youtube.com',
+  'youtu.be',
+  'photos.google.com',
+  'photos.app.goo.gl',
+  'goo.gl',
+  // Clubs amis et fournisseurs (page « Lou Coumpan »), vérifiés le 05/11/2026 : toujours en ligne et sur le thème
+  'amrcv.fr',
+  'rouler-en-traction-avant.blog4ever.com',
+  'traction1934.free.fr',
+  'tractionavant7b.free.fr',
+  'traction.valdesarre.fr',
+  'une.traction.pour.jean.moulin.over-blog.com',
+  'une-traction-pour-jean-moulin.over-blog.com',
+  '34-57.ch',
+  'rackkatrac.com',
+  'traction15six.com',
+  'tractionavant7a.net',
+  'tractionclubdesvolcans.sitew.fr',
+  'tractionrhonealpes.com',
 ];
 
 /** Balises supprimées avec leur contenu. */
@@ -90,6 +110,14 @@ export function extractArticle(page: string): Article {
       flags.push(`bloc masqué supprimé : « ${clean($el.text()).slice(0, 80)} »`);
       $el.remove();
     }
+  });
+
+  // Lien vers une image du site (galerie Galleria, vignette cliquable) : on garde l'image elle-même, en grand.
+  $('a[href]').each((_, el) => {
+    const path = sitePath($(el).attr('href')!);
+    if (!path || !/^IMG\/.+\.(jpe?g|png|gif)$/i.test(path)) return;
+    const alt = ($(el).find('img').attr('alt') ?? '').trim();
+    $(el).replaceWith($('<img>').attr('src', path).attr('alt', alt));
   });
 
   // Le logo d'article est repris à part ; les icônes de documents sont inutiles.

@@ -30,6 +30,10 @@ describe('isArchivePlaceholder', () => {
     expect(isArchivePlaceholder(read('offline.html'))).toBe(true);
   });
 
+  test('reconnaît la page-cadre de l’ancien domaine (sans contenu)', () => {
+    expect(isArchivePlaceholder(read('frameset.html'))).toBe(true);
+  });
+
   test('ne confond pas un vrai article', () => {
     expect(isArchivePlaceholder(read('article-53.html'))).toBe(false);
   });
@@ -51,6 +55,41 @@ describe('extractArticle', () => {
     expect(a.html).not.toMatch(/onerror/i);
     expect(a.html).toContain('Il était une fois en 1975');
     expect(a.flags.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test('garde les liens vers les clubs amis, YouTube et Google Photos', () => {
+    const page = read('article-53.html').replace(
+      '<div class="itemtext">',
+      '<div class="itemtext"><p><a href="http://www.tractionrhonealpes.com/">Rhône-Alpes</a> <a href="https://www.youtube.com/watch?v=x">vidéo</a> <a href="https://photos.app.goo.gl/abc">album</a> <a href="http://www.leschevronnes.fr/">mort</a></p>',
+    );
+    const a = extractArticle(page);
+    expect(a.html).toContain('href="http://www.tractionrhonealpes.com/"');
+    expect(a.html).toContain('href="https://www.youtube.com/watch?v=x"');
+    expect(a.html).toContain('href="https://photos.app.goo.gl/abc"');
+    expect(a.html).not.toContain('leschevronnes');
+    expect(a.flags).toHaveLength(1);
+  });
+
+  test('une galerie Galleria (liens vers IMG/jpg, images vides) devient une suite d’images', () => {
+    const page = read('article-53.html').replace(
+      '<div class="itemtext">',
+      '<div class="itemtext"><div id="galleria5da"><a href="IMG/jpg/pub0-min.jpg"><img src="" title=" " /></a><a href="IMG/jpg/pub00-min.jpg"><img src="" /></a></div>',
+    );
+    const a = extractArticle(page);
+    expect(a.images).toEqual(expect.arrayContaining(['IMG/jpg/pub0-min.jpg', 'IMG/jpg/pub00-min.jpg']));
+    expect(a.html).toContain('<img src="IMG/jpg/pub0-min.jpg"');
+    expect(a.html).not.toContain('<a href="IMG/jpg');
+  });
+
+  test('une vignette cliquable est remplacée par l’image en grand', () => {
+    const page = read('article-53.html').replace(
+      '<div class="itemtext">',
+      '<div class="itemtext"><a href="http://s631887927.onlinehome.fr/IMG/jpg/graissage-traction.jpg"><img src="local/cache-vignettes/L500xH361/graissage-tra7bf-e5e89.jpg" alt="Graissage" /></a>',
+    );
+    const a = extractArticle(page);
+    expect(a.html).toContain('<img src="IMG/jpg/graissage-traction.jpg" alt="Graissage"');
+    expect(a.images).toContain('IMG/jpg/graissage-traction.jpg');
+    expect(a.images).not.toContain('local/cache-vignettes/L500xH361/graissage-tra7bf-e5e89.jpg');
   });
 
   test('liste les PDF référencés (article 56, Électricité)', () => {

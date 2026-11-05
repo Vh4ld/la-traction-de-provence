@@ -2,8 +2,9 @@
 title: "Mentions légales"
 section: infos
 order: 1
-description: "Mentions légales : rubrique du site de La Traction de Provence, club de la Citroën Traction Avant en Provence."
+description: "Mentions légales : une rubrique du site de La Traction de Provence, club de la Citroën Traction Avant en Provence."
 legacyIds: [60]
+# Récupéré de "http://www.la-traction-de-provence.fr/spip.php?article60" (capture 20220517103455)
 ---
 
-Cette page est en cours de reprise depuis l’ancien site.
+

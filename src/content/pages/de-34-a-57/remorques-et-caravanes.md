@@ -2,8 +2,14 @@
 title: "Remorques et caravanes"
 section: de-34-a-57
 order: 6
-description: "Remorques et caravanes : rubrique du site de La Traction de Provence, club de la Citroën Traction Avant en Provence."
+description: "La 5ème roue ou monoroue Les remorques KIVA Les remorques O.L.D."
 legacyIds: [73]
+cover: ../../../assets/content/arton73.jpg
+# Récupéré de "http://s631887927.onlinehome.fr/spip.php?page=article&id_article=73" (capture 20201129144005)
 ---
 
-Cette page est en cours de reprise depuis l’ancien site.
+- La 5ème roue ou monoroue
+- Les remorques KIVA
+- Les remorques O.L.D.
+- Les remorques et caravanes DIGUE
+- Les remorques et caravanes Westfalia

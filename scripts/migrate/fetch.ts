@@ -1,5 +1,5 @@
-/** Pages d'erreur de la Wayback Machine, parfois servies avec un statut 200. */
-const PLACEHOLDERS = [/Temporarily Offline/i, /<title>[^<]*Time-?out/i, /Wayback Machine has not archived/i, /504 Gateway Time-out/i];
+/** Pages sans contenu : erreurs de la Wayback Machine (parfois en statut 200) et page-cadre de l'ancien domaine. */
+const PLACEHOLDERS = [/<frameset[\s>]/i, /Temporarily Offline/i, /<title>[^<]*Time-?out/i, /Wayback Machine has not archived/i, /504 Gateway Time-out/i];
 
 export class ArchiveUnavailableError extends Error {}
 
