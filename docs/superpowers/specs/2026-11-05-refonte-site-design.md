@@ -202,7 +202,7 @@ Before each commit to `test`:
 
 ## 10. Open points
 
-- **Licence:** the repo is CC0 (public-domain dedication). That would cover the club's photos, texts and scanned documents. Many Citroën scans and member photos are not the club's to relicense. Recommendation: keep CC0 (or MIT) for the code only and add a notice that content (texts, photos, documents) remains © La Traction de Provence and its authors. **Owner decision needed.**
-- **Local tooling:** Node.js (22 LTS+) is not installed on the dev machine; it is needed to build and run the migration. Docker is not installed either; the image can be tested in CI, so Docker locally is optional.
+- ~~Licence~~ **Decided:** code under MIT (`LICENSE`); content (texts, photos, images, logo, documents, PDFs) © La Traction de Provence and its authors, all rights reserved (`CONTENT-NOTICE.md`). The site footer repeats the content notice.
+- **Local tooling:** Node.js is installed. Docker is not; the image is tested in CI, so Docker locally is optional.
 - **Font choice** for the title is confirmed visually during implementation.
 - **Mentions légales** must name the publication director and the host (OVH). Content to be confirmed by the owner from the recovered page.

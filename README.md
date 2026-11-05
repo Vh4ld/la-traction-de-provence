@@ -80,4 +80,5 @@ Les instructions complètes (`docker-compose.yml`, bascule depuis WordPress, ret
 
 ## Licence
 
-Voir le fichier [LICENSE](LICENSE).
+- **Code source** : licence MIT, voir [LICENSE](LICENSE).
+- **Contenu** (textes, photos, images, logo, documents et PDF) : © La Traction de Provence et leurs auteurs respectifs, tous droits réservés. Voir [CONTENT-NOTICE.md](CONTENT-NOTICE.md).
