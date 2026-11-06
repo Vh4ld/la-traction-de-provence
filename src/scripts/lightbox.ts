@@ -1,3 +1,5 @@
+import { largestCandidate } from '../lib/srcset';
+
 /**
  * Visionneuse : chaque image d'article (hors images servant de lien) devient un bouton
  * « Agrandir » qui l'ouvre dans une boîte de dialogue. Flèches gauche/droite pour naviguer,
@@ -33,7 +35,8 @@ export function initLightbox(root: ParentNode = document): void {
   const show = (i: number) => {
     index = (i + images.length) % images.length;
     const img = images[index];
-    big.src = img.dataset.full ?? img.currentSrc ?? img.src;
+    // Vignette en taille réduite : la visionneuse affiche la plus grande version (l'original).
+    big.src = img.dataset.full ?? largestCandidate(img.getAttribute('srcset') ?? undefined) ?? img.currentSrc ?? img.src;
     big.alt = img.alt;
     caption.textContent = img.alt;
     caption.hidden = !img.alt;

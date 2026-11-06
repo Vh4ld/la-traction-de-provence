@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
+// Même fichier que celui de la feuille de style (@fontsource) : Vite lui donne la même adresse.
+import displayFont from '@fontsource/limelight/files/limelight-latin-400-normal.woff2?url';
 
 interface Props {
   /** Titre de la page ; absent sur l'accueil. */
@@ -23,6 +25,8 @@ const isHome = Astro.url.pathname === '/';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#07286d" />
+    <!-- Police du titre préchargée : le bandeau s'affiche sans changer de police en cours de chargement. -->
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <Seo title={title} description={description} image={image} noindex={noindex} />
