@@ -4,7 +4,7 @@
 
 ## Résumé
 
-- **Textes** : récupérés depuis la Wayback Machine (archive.org), uniquement à partir de captures **antérieures au 1er juillet 2023**. La sauvegarde de l’ancien site montre que le serveur était compromis dès juillet 2023 (fichiers PHP malveillants) ; les captures plus récentes ne sont pas fiables.
+- **Textes** : récupérés depuis la Wayback Machine (archive.org), uniquement à partir de captures **antérieures au 1er juillet 2023**. La sauvegarde de l’ancien site montre que le serveur était compromis au plus tard en mai 2023, possiblement dès mars 2023 (faille SPIP CVE-2023-27372) ; les captures plus récentes ne sont pas fiables. Toutes les captures utilisées datent du 2 décembre 2022 au plus tard, donc d’avant la compromission. Depuis, la date limite des scripts de récupération est fixée au 1er février 2023.
 - **Photos et PDF** : repris de la sauvegarde locale de l’ancien site (`IMG/`), meilleure qualité que l’archive. Chaque fichier a été vérifié : type réel conforme à l’extension, aucun code caché, aucun PDF contenant du JavaScript ou une action automatique. Les images ont été ré-encodées (métadonnées et données parasites supprimées).
 - **Résultat** : 35 pages, 159 PDF (≈ 253 Mo), 296 images, 103 photos du mois (juin 2016 → janvier 2025). Aucun fichier refusé.
 - **Non repris** : le forum (volontairement), et 27 articles jamais archivés avant juillet 2023 (liste ci-dessous).

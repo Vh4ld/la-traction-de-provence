@@ -166,7 +166,7 @@ docker compose -f /opt/traction-site/docker-compose.yml up -d
 - Conteneur non root, système de fichiers en lecture seule, aucune capacité Linux, aucun port publié.
 - En-têtes stricts : Content-Security-Policy (`'self'` uniquement), `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`.
 - Les anciennes adresses SPIP (`spip.php?…`, `/IMG/pdf/…`) sont redirigées vers les nouvelles pages ; aucun fichier PHP n'existe.
-- Le contenu repris de l'ancien site a été vérifié : textes issus de captures antérieures à la compromission (juillet 2023), fichiers contrôlés (type réel, absence de code, PDF sans JavaScript), images ré-encodées.
+- Le contenu repris de l'ancien site a été vérifié : textes issus de captures antérieures à la compromission (toutes de décembre 2022 au plus tard ; date limite des scripts : 1er février 2023), fichiers contrôlés (type réel, absence de code, PDF sans JavaScript), images ré-encodées.
 
 ## Licence
 

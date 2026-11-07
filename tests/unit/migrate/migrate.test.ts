@@ -11,13 +11,14 @@ const read = (name: string) => readFileSync(fx(name), 'utf8');
 describe('pickSnapshot', () => {
   const rows = [
     { timestamp: '20171018005338', status: '200' },
+    { timestamp: '20221202101500', status: '200' },
     { timestamp: '20230208071048', status: '200' },
     { timestamp: '20230601000000', status: '503' },
     { timestamp: '20240620055454', status: '200' },
   ];
 
-  test('prend la plus récente capture valide avant la compromission (juillet 2023)', () => {
-    expect(pickSnapshot(rows)).toBe('20230208071048');
+  test('prend la plus récente capture valide avant la compromission (février 2023)', () => {
+    expect(pickSnapshot(rows)).toBe('20221202101500');
   });
 
   test('renvoie null si toutes les captures sont postérieures', () => {
