@@ -56,10 +56,20 @@ jobs:
 
       - name: Démarrer le conteneur comme en production
         run: |
-          docker run -d --name site --read-only --tmpfs /tmp \
+          docker run -d --name site --user 101:101 --read-only \
+            --tmpfs /tmp:size=32m,mode=1777,noexec,nosuid,nodev \
             --cap-drop ALL --security-opt no-new-privileges \
+            --memory 128m --cpus 0.5 --pids-limit 64 \
             -p 8080:8080 traction-site:ci
-          for i in $(seq 1 30); do curl -fs http://localhost:8080/healthz && break; sleep 1; done
+          for i in $(seq 1 30); do curl -fs -o /dev/null http://localhost:8080/ && break; sleep 1; done
+
+      - name: Vérifier le contrôle de santé (depuis le conteneur)
+        run: test "$(docker exec site wget -qO- http://127.0.0.1:8080/healthz)" = "ok"
+
+      - name: Vérifier l'utilisateur et l'absence d'apk
+        run: |
+          test "$(docker exec site id -u)" = "101"
+          ! docker exec site sh -c 'command -v apk'
 
       - name: Vérifier pages, en-têtes et redirections
         run: tests/container/check.sh http://localhost:8080
