@@ -13,3 +13,13 @@ docs
 tests
 *.md
 !src/**/*.md
+# Secrets et archives (constructions locales)
+.env
+.env.*
+*.zip
+*.tar
+*.tar.gz
+*.sql
+*.sql.gz
+.vscode
+lighthouse-report*
