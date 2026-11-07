@@ -38,7 +38,7 @@ Rebuild the website of La Traction de Provence (non-profit "association loi 1901
 - The homepage shrinks from ~5.9 KB to ~575 bytes in **September 2025** (likely hack date). Spam pages (`/js/1856.html`, `/images/3057.html`, …) appear from **February 2025**. The local backup (below) shows the compromise actually began by **July 2023**, so only snapshots **before 2023-07-01** are trusted.
 - Wayback holds ~35 article pages (`spip.php?page=article&id_article=N`), one section page (`id_rubrique=5`), ~100 PDFs under `IMG/pdf/`, images under `IMG/jpg/` and `local/cache-vignettes/`, the header image and the 6 banner photos (`squelettes/toto/1-6.jpg`).
 
-### Local backup of the old site (`../my_directory/`, added 2026-11-05)
+### Local backup of the old site (`<chemin-sauvegarde>/`, added 2026-11-05)
 
 - Full SPIP file tree (2.3 GB) **without the database** (MySQL, not saved; `config/bases/spip.sqlite` is empty). `Discute/` is the phpBB forum: out of scope, not used.
 - **The compromise started no later than July 2023:** webshells and droppers dated 2023-07 → 2024-10 (`IMG/.about.php`, `IMG/store.php`, `IMG/distant/xml/*.php`, `IMG/bmp/bg_hash3.php`, root `bd.php`, `fr.php`, `pk.php`, `od.php`, `oy.php`, `1.sh`, `get.sh`, …), tampered templates (`squelettes/js/`, `squelettes/modeles/` 2023-06, `sommaire.html` 2023-10). The September 2025 defacement was only the visible end.

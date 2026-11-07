@@ -20,7 +20,7 @@
 - No forum, no comments, no contact form, no analytics, no third-party requests at runtime (fonts self-hosted), no cookies.
 - No inline executable `<script>`: Astro configured with `vite.build.assetsInlineLimit: 0` and `build.inlineStylesheets: 'never'`, so the CSP `script-src 'self'` holds. JSON-LD (`type="application/ld+json"`) is allowed.
 - Wayback content: only snapshots with timestamp `< 20230701000000`. Downloaded files are untrusted: read and copy only, never execute; run Node scripts that parse them from the repo, never from the download folder.
-- Media source: the local backup `/home/vhald/Documents/Traction/my_directory/IMG/` (path passed as `--backup`), validated per spec §5. It contains webshells: never execute, include, serve or copy any non-media file from it. Never `cd` into it to run tools.
+- Media source: the local backup `<chemin-sauvegarde>/IMG/` (kept offline, outside the repo; path passed as `--backup`), validated per spec §5. It contains webshells: never execute, include, serve or copy any non-media file from it. Never `cd` into it to run tools.
 - Container: listens on `8080`, runs non-root, `read_only`, network `proxy-net` (external), container name `traction_site`, no host port.
 - Image: `ghcr.io/vh4ld/la-traction-de-provence`, tags `latest` and `sha-<short sha>`.
 - WCAG 2.2 AA; axe zero violations on every built page; Lighthouse ≥ 95 in all four categories on `/` and one article page.
