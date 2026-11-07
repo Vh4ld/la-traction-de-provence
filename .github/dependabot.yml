@@ -1,0 +1,33 @@
+# Mises à jour automatiques des dépendances.
+# Les PR visent la branche `test` : rien ne part en production sans fusion manuelle vers `main`.
+version: 2
+updates:
+  # Actions GitHub (épinglées par SHA de commit dans les workflows)
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: test
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Paquets npm
+  - package-ecosystem: npm
+    directory: /
+    target-branch: test
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      production:
+        dependency-type: production
+      developpement:
+        dependency-type: development
+
+  # Images de base du Dockerfile
+  - package-ecosystem: docker
+    directory: /
+    target-branch: test
+    schedule:
+      interval: weekly
