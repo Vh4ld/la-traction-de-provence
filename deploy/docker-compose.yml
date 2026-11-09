@@ -8,9 +8,21 @@ services:
     image: ghcr.io/vh4ld/la-traction-de-provence:latest
     container_name: traction_site
     restart: unless-stopped
+    # Utilisateur nginx non privilégié de l'image (UID/GID 101).
+    user: "101:101"
     read_only: true
     tmpfs:
-      - /tmp
+      - /tmp:size=32m,mode=1777,noexec,nosuid,nodev
+    # Limites de ressources : un afflux de requêtes ne peut pas affamer les autres conteneurs du VPS.
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+    # Rotation des journaux : 3 fichiers de 10 Mo au plus.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     cap_drop:
       - ALL
     security_opt:

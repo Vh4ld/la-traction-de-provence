@@ -15,6 +15,19 @@ describe('evenementSchema', () => {
     const r = evenementSchema.safeParse({ title: 'Le bouchon de la N9', start: '2026-06-21', end: '2026-06-23' });
     expect(r.success).toBe(true);
   });
+
+  test('accepte un lien https', () => {
+    const r = evenementSchema.safeParse({ title: 'x', start: '2026-06-21', link: 'https://example.org/rallye' });
+    expect(r.success).toBe(true);
+  });
+
+  test.each(['javascript:alert(1)', 'data:text/html,x', 'vbscript:x', 'http://example.org/', 'ftp://example.org/'])(
+    'refuse le lien %s',
+    (link) => {
+      const r = evenementSchema.safeParse({ title: 'x', start: '2026-06-21', link });
+      expect(r.success).toBe(false);
+    },
+  );
 });
 
 

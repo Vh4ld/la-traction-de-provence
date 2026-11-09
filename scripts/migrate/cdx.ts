@@ -1,7 +1,11 @@
 import { fetchText } from './fetch';
 
-/** Début de la compromission de l'ancien site : aucune capture ultérieure n'est fiable. */
-export const CUTOFF = '20230701000000';
+/**
+ * Date limite de confiance : aucune capture ultérieure n'est fiable.
+ * Les premiers webshells datent de mai 2023, et le site (SPIP 3.1.9) était vulnérable à
+ * CVE-2023-27372, exploitée massivement dès mars 2023 : on s'arrête avant sa publication.
+ */
+export const CUTOFF = '20230201000000';
 
 export type CdxRow = { timestamp: string; status: string };
 

@@ -32,7 +32,8 @@ export const evenementSchema = z
     start: z.coerce.date(),
     end: z.coerce.date().optional(),
     place: z.string().optional(),
-    link: z.url().optional(),
+    /** Lien externe : https uniquement (pas de javascript:, data:, http:…). */
+    link: z.url({ protocol: /^https$/ }).optional(),
   })
   .refine((e) => !e.end || e.end >= e.start, {
     message: 'La date de fin doit être postérieure ou égale à la date de début.',
