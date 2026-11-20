@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
-    "@astrojs/markdown-remark": "^7.3.5",
-    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/markdown-remark": "^7.3.9",
+    "@astrojs/sitemap": "^3.7.5",
     "@fontsource/limelight": "^5.3.0",
     "@types/hast": "^3.0.5",
-    "astro": "^7.4.7",
+    "astro": "^7.4.12",
     "typescript": "^6.0.3",
     "unist-util-visit": "^5.2.0"
   },
