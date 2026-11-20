@@ -38,7 +38,7 @@ services:
   # Met à jour automatiquement les conteneurs portant l'étiquette watchtower.enable=true (et eux seuls).
   watchtower:
     # Fork maintenu de containrrr/watchtower (dépôt d'origine archivé).
-    image: ghcr.io/nickfedor/watchtower:latest
+    image: ghcr.io/nicholas-fedor/watchtower:latest
     container_name: watchtower
     restart: unless-stopped
     read_only: true
