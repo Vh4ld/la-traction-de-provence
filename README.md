@@ -140,7 +140,7 @@ Les en-têtes de sécurité (CSP, etc.) sont envoyés par le conteneur lui-même
 
 ### Mises à jour
 
-Automatiques : toute fusion dans `main` publie une nouvelle image, que Watchtower installe. Pour forcer une mise à jour immédiate :
+Automatiques : toute fusion dans `main` publie une nouvelle image, que le service `watchtower` (défini dans `docker-compose.yml`, vérification toutes les 5 minutes) installe. Pour forcer une mise à jour immédiate :
 
 ```bash
 docker compose -f /opt/traction-site/docker-compose.yml pull
